@@ -1,0 +1,9 @@
+Package: shoRtcut
+Type: Package
+Title: A set of functions to make the R user even more easy.
+Version: 0.1.0
+Date: 2013-07-03
+Author: Joshua Kunst <jbkunst@gmail.com>
+Maintainer: Joshua Kunst <jbkunst@gmail.com>
+Description: More about what it does (maybe more than one line)
+License: GPL (>= 3)

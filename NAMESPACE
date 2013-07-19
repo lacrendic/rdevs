@@ -1,0 +1,4 @@
+importFrom(plyr)
+importFrom(xlsx)
+
+export(writetable, readtable, freqtable)

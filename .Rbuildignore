@@ -1,0 +1,13 @@
+^\.Rproj\.user$
+^\.git.*$
+^TODO\.txt$
+\.RData
+^.*[.]Rproj$
+^wiki$
+^readme$
+^playground$
+.*~
+^\.git
+.*\.png
+.*\.gexf$
+^.*\.Rproj$

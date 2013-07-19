@@ -1,0 +1,62 @@
+## shoRtcut
+
+shoRtcut is an R package to make the life with R even more easier.
+
+### Installation
+
+You can install `shoRcut` from `github` using the `devtools` package.
+
+```{r, message=FALSE, echo=FALSE}
+file.rename("README.md", "../README.md")
+```
+
+
+
+```{r, message=FALSE}
+library(devtools)
+install_github("shoRcut", "jbkunst")
+library(shoRcut)
+```
+
+
+
+
+### Some functions
+
+#### Frequency table
+
+The function `freqtable` return a `data.frame` with the information of the counts of the levels of variable.
+
+```{r}
+data(iris)
+freqtable(iris$Species)
+freqtable(iris$Species, add.total=FALSE)
+```
+
+
+#### Exporting tables
+
+The function `writetable` require only the name of the file with the extension. 
+
+
+```{r, message=FALSE}
+data(cars)
+
+t1 <- cbind(head(cars, 3), var1 = "excel")
+t2 <- cbind(tail(cars, 3), var2 = "text")
+
+writetable(t1, "excel_file.xlsx")
+writetable(t2, "txt_file.txt")
+```
+
+#### Reading tables
+
+The function `readtable` require the names of files (always with extension) to read. You can read simoultaneus files.  This function not necessary require all tables with the same number columns.
+
+
+```{r message=FALSE, }
+table <- readtable(c("excel_file.xlsx", "txt_file.txt"))
+```
+```{r}
+table
+```

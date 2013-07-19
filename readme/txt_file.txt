@@ -1,0 +1,4 @@
+speed	dist	var2
+24	93	text
+24	120	text
+25	85	text

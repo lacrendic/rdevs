@@ -1,0 +1,26 @@
+readtable <- function(files, ...){
+  library(plyr)
+  # 20120314: Use of the function ldply to load more than 1 file
+  # 20130409: Support pipe separated values
+  read.table.aux <- function(name, ...){
+    ext <- tolower(unlist(strsplit(name, "\\."))[length(unlist(strsplit(name, "\\.")))])
+    ext_support <- c("txt","csv","xlsx","xls","dbf","sas7bdat","sav","tsv","dat", "psv")
+    if(!ext %in% ext_support){
+      stop("No posible format (extension)")
+    }
+    if(ext %in% c("txt","tsv","dat")) return(read.table(name, sep = "\t", header = TRUE, comment.char = "", quote = "",  ...))
+    if(ext == "csv") return(read.table(name, sep = ";", header = TRUE,  comment.char = "", quote = "", dec=",", ...))
+    if(ext == "psv") return(read.table(name, sep = "|", header = TRUE,  comment.char = "", quote = "", dec=",", ...))
+    if(ext == "sav"){
+      library(foreign)
+      return(read.spss(name, to.data.frame = T))
+    }
+    if(ext == "sas7bdat"){ library(sas7bdat); return(read.sas7bdat(name))}
+    if(ext %in% c("xlsx","xls")){
+		library(xlsx)
+		return(read.xlsx(name, sheetIndex=1, ...))
+	}
+  }
+  # This function not necessary require all data with the same structure
+  ldply(files, function(f) read.table.aux(f, ...))
+}
