@@ -14,8 +14,8 @@ file.rename("README.md", "../README.md")
 
 ```{r, message=FALSE}
 library(devtools)
-install_github("shoRcut", "jbkunst")
-library(shoRcut)
+install_github("shoRtcut", "jbkunst")
+library(shoRtcut)
 ```
 
 

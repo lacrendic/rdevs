@@ -1,4 +1,7 @@
 importFrom(plyr)
+importFrom(scales)
 importFrom(xlsx)
 
-export(writetable, readtable, freqtable)
+export(
+	writetable, readtable, freqtable,
+	str_capitalize, str_clean, str_first_upper, str_is_email, str_pattern)

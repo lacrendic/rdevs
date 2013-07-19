@@ -1,6 +1,6 @@
-## shoRtcut
+## shoRcut
 
-shoRtcut is an R package to make the life with R even more easier.
+shoRcut is an R package to make the life with R even more easier.
 
 ### Installation
 

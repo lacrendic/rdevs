@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>shoRcut</title>
+<title>shoRtcut</title>
 
 <style type="text/css">
 body, td {
@@ -178,9 +178,9 @@ hljs.initHighlightingOnLoad();
 </head>
 
 <body>
-<h2>shoRcut</h2>
+<h2>shoRtcut</h2>
 
-<p>shoRcut is an R package to make the life with R even more easier.</p>
+<p>shoRtcut is an R package to make the life with R even more easier.</p>
 
 <h3>Installation</h3>
 
@@ -190,13 +190,15 @@ hljs.initHighlightingOnLoad();
 </code></pre>
 
 <pre><code class="r">library(devtools)
-install_github(&quot;shoRcut&quot;, &quot;jbkunst&quot;)
-library(shoRcut)
+install_github(&quot;shoRtcut&quot;, &quot;jbkunst&quot;)
+library(shoRtcut)
 </code></pre>
 
 <h3>Some functions</h3>
 
 <h4>Frequency table</h4>
+
+<p>The function <code>freqtable</code> return a <code>data.frame</code> with the information of the counts of the levels of variable.</p>
 
 <pre><code class="r">data(iris)
 freqtable(iris$Species)
@@ -233,7 +235,7 @@ writetable(t2, &quot;txt_file.txt&quot;)
 
 <h4>Reading tables</h4>
 
-<p>The function <code>readtable</code> require the names of files (always with extension) to read. You can read simoultaneus files.  This function not necessary require all tables with the same columns.</p>
+<p>The function <code>readtable</code> require the names of files (always with extension) to read. You can read simoultaneus files.  This function not necessary require all tables with the same number columns.</p>
 
 <pre><code class="r">table &lt;- readtable(c(&quot;excel_file.xlsx&quot;, &quot;txt_file.txt&quot;))
 </code></pre>
