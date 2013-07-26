@@ -6,7 +6,7 @@ shoRtcut is an R package to make the life with R even more easier.
 
 You can install `shoRcut` from `github` using the `devtools` package.
 
-```{r, message=FALSE, echo=FALSE}
+```{r, message=FALSE, echo=FALSE, warning=FALSE}
 file.rename("README.md", "../README.md")
 rm(list=ls())
 ```
@@ -60,7 +60,7 @@ writetable(t2, "txt_file.txt")
 
 #### Reading tables
 
-The function `readtable` require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the `rbind.fill` function of the `plyr` package.
+The function `readtable` require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the `rbind.fill` function in the `plyr` package.
 
 
 ```{r message=FALSE, }
