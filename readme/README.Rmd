@@ -35,7 +35,8 @@ freqtable(credit$marital_status, add.total=FALSE)
 freqtable(credit$residence_type, sort.by.count=TRUE, pretty=TRUE)
 ```
 
-This function also make a table 
+This function also make a cross table if `variable2` argument is given.
+
 ```{r}
 freqtable(credit$marital_status, credit$residence_type)
 freqtable(credit$marital_status, credit$residence_type,
@@ -45,7 +46,7 @@ freqtable(credit$marital_status, credit$residence_type,
 
 #### Exporting tables
 
-The function `writetable` require only the name of the file with the extension. 
+The function `writetable` requirev the name (with path if you want) of the file with the extension and the `data.frame` to export. 
 
 ```{r, message=FALSE}
 data(cars)
@@ -59,7 +60,7 @@ writetable(t2, "txt_file.txt")
 
 #### Reading tables
 
-The function `readtable` require the names of files (always with extension) to read. You can read simoultaneus files.  This function not necessary require all tables with the same number columns.
+The function `readtable` require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the `rbind.fill` function of the `plyr` package.
 
 
 ```{r message=FALSE, }
