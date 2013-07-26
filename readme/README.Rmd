@@ -28,16 +28,23 @@ library(shoRtcut)
 The function `freqtable` return a `data.frame` with the information of the counts of the levels of variable.
 
 ```{r}
-data(iris)
-freqtable(iris$Species)
-freqtable(iris$Species, add.total=FALSE)
+data(credit)
+freqtable(credit$marital_status)
+freqtable(credit$marital_status, add.total=FALSE)
+freqtable(credit$residence_type, sort.by.count=TRUE, pretty=TRUE)
+```
+
+This function also make a table 
+```{r}
+freqtable(credit$marital_status, credit$residence_type)
+freqtable(credit$marital_status, credit$residence_type,
+          add.total=FALSE, pretty=TRUE)
 ```
 
 
 #### Exporting tables
 
 The function `writetable` require only the name of the file with the extension. 
-
 
 ```{r, message=FALSE}
 data(cars)

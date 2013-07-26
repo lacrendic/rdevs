@@ -1,6 +1,6 @@
-## shoRcut
+## shoRtcut
 
-shoRcut is an R package to make the life with R even more easier.
+shoRtcut is an R package to make the life with R even more easier.
 
 ### Installation
 
@@ -17,8 +17,8 @@ You can install `shoRcut` from `github` using the `devtools` package.
 
 ```r
 library(devtools)
-install_github("shoRcut", "jbkunst")
-library(shoRcut)
+install_github("shoRtcut", "jbkunst")
+library(shoRtcut)
 ```
 
 
@@ -29,6 +29,7 @@ library(shoRcut)
 
 #### Frequency table
 
+The function `freqtable` return a `data.frame` with the information of the counts of the levels of variable.
 
 
 ```r
@@ -76,7 +77,7 @@ writetable(t2, "txt_file.txt")
 
 #### Reading tables
 
-The function `readtable` require the names of files (always with extension) to read. You can read simoultaneus files.  This function not necessary require all tables with the same columns.
+The function `readtable` require the names of files (always with extension) to read. You can read simoultaneus files.  This function not necessary require all tables with the same number columns.
 
 
 

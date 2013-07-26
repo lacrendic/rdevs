@@ -51,20 +51,17 @@ freqtable <- function(variable, variable2, sort.by.count = FALSE, pretty = FALSE
     }
     
     if(add.total){
-      
       table <- rbind(table, data.frame(variable = "Total.col", t(colSums(table[,-1]))))
       table$Total.row <- rowSums(table[,-1])
-      
+      table[nrow(table), ncol(table)] <- NA 
     }
     
     if(pretty){
       library(scales)
       table[,-1] <- prettyNum(table[,-1], big.mark=",")
-      table[nrow(table), ncol(table)] <- NA 
     }
     
     return(table)
   }
   
 }
-
