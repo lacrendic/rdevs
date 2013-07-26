@@ -8,7 +8,7 @@ You can install `shoRcut` from `github` using the `devtools` package.
 
 
 ```
-## [1] TRUE
+## [1] FALSE
 ```
 
 
@@ -33,27 +33,54 @@ The function `freqtable` return a `data.frame` with the information of the count
 
 
 ```r
-data(iris)
-freqtable(iris$Species)
+data(credit)
 ```
 
 ```
-##     variable freq cumfreq relfreq cumrelfreq
-## 1     setosa   50      50  0.3333     0.3333
-## 2 versicolor   50     100  0.3333     0.6667
-## 3  virginica   50     150  0.3333     1.0000
-## 4      Total  150      NA  1.0000         NA
+## Warning: data set 'credit' not found
 ```
 
 ```r
-freqtable(iris$Species, add.total = FALSE)
+freqtable(credit$marital_status)
 ```
 
 ```
-##     variable freq cumfreq relfreq cumrelfreq
-## 1     setosa   50      50  0.3333     0.3333
-## 2 versicolor   50     100  0.3333     0.6667
-## 3  virginica   50     150  0.3333     1.0000
+## Error: object 'credit' not found
+```
+
+```r
+freqtable(credit$marital_status, add.total = FALSE)
+```
+
+```
+## Error: object 'credit' not found
+```
+
+```r
+freqtable(credit$residence_type, sort.by.count = TRUE, pretty = TRUE)
+```
+
+```
+## Error: object 'credit' not found
+```
+
+
+This function also make a table 
+
+```r
+freqtable(credit$marital_status, credit$residence_type)
+```
+
+```
+## Error: object 'credit' not found
+```
+
+```r
+freqtable(credit$marital_status, credit$residence_type, add.total = FALSE, pretty = TRUE)
+```
+
+```
+## Error: object 'credit' not found
 ```
 
 
@@ -61,7 +88,6 @@ freqtable(iris$Species, add.total = FALSE)
 #### Exporting tables
 
 The function `writetable` require only the name of the file with the extension. 
-
 
 
 ```r
