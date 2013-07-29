@@ -8,11 +8,10 @@ str_pattern <- function(string, pattern){
   string[str_detect(string, pattern)]
 }
 
-str_capitalize <- function(strings){
+str_capitalize <- function(string){
   # http://stackoverflow.com/questions/6364783/capitalize-the-first-letter-of-both-words-in-a-two-word-string/6365349#6365349
-  gsub("(^|[[:space:]])([[:alpha:]])", "\\1\\U\\2", tolower(strings), perl=TRUE)
+  gsub("(^|[[:space:]])([[:alpha:]])", "\\1\\U\\2", tolower(string), perl=TRUE)
 }
-
 
 str_clean <- function(string,
                       remove.punct = TRUE,
@@ -22,7 +21,7 @@ str_clean <- function(string,
                       to.lower = TRUE){
   require(stringr)
   if(remove.punct)     string <- gsub("[[:punct:]]", "", string)
-  if(remove.digits)    string <- gsub("[[:digit:]]", "", string)
+  if(remove.digit)     string <- gsub("[[:digit:]]", "", string)
   if(remove.accent)    string <- iconv(string, from="UTF-8", to="ASCII//TRANSLIT")  # https://stat.ethz.ch/pipermail/r-help/2010-September/251833.html
   if(to.lower)         string <- tolower(string)
   if(trim)             string <- str_trim(string)
@@ -30,15 +29,7 @@ str_clean <- function(string,
   return(string)
 }
 
-str_to_humans <- function(string){
-  return(string)
-}
-
-str_to_humans <- function(string){
-  return(string)
-}
-
-str_is_email <- function(x){
+str_is_email <- function(string){
   email_pattern <- "^([a-zA-Z0-9]+[a-zA-Z0-9._%-]*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,4})$"
-  grepl(email_pattern, x)
+  grepl(email_pattern, string)
 }
