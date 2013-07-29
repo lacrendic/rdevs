@@ -69,3 +69,12 @@ table <- readtable(c("excel_file.xlsx", "txt_file.txt"))
 ```{r}
 table
 ```
+
+#### Other functions
+There are other functions and others in development:
+* str_capitalize
+* str_clean
+* str_first_upper
+* str_is_email
+* str_pattern
+* truncate

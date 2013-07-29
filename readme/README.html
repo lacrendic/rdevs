@@ -275,7 +275,7 @@ writetable(t2, &quot;txt_file.txt&quot;)
 
 <h4>Reading tables</h4>
 
-<p>The function <code>readtable</code> require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the <code>rbind.fill</code> function of the <code>plyr</code> package.</p>
+<p>The function <code>readtable</code> require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the <code>rbind.fill</code> function in the <code>plyr</code> package.</p>
 
 <pre><code class="r">table &lt;- readtable(c(&quot;excel_file.xlsx&quot;, &quot;txt_file.txt&quot;))
 </code></pre>
@@ -291,6 +291,19 @@ writetable(t2, &quot;txt_file.txt&quot;)
 ## 5    24  120  &lt;NA&gt; text
 ## 6    25   85  &lt;NA&gt; text
 </code></pre>
+
+<h4>Other functions</h4>
+
+<p>There are other functions and others in development:</p>
+
+<ul>
+<li>str_capitalize</li>
+<li>str_clean</li>
+<li>str_first_upper</li>
+<li>str_is_email</li>
+<li>str_pattern</li>
+<li>truncate</li>
+</ul>
 
 </body>
 

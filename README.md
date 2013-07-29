@@ -18,6 +18,13 @@ You can install `shoRcut` from `github` using the `devtools` package.
 ```r
 library(devtools)
 install_github("shoRtcut", "jbkunst")
+```
+
+```
+## Error: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+```
+
+```r
 library(shoRtcut)
 ```
 
@@ -124,7 +131,7 @@ writetable(t2, "txt_file.txt")
 
 #### Reading tables
 
-The function `readtable` require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the `rbind.fill` function of the `plyr` package.
+The function `readtable` require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the `rbind.fill` function in the `plyr` package.
 
 
 
@@ -147,3 +154,12 @@ table
 ## 6    25   85  <NA> text
 ```
 
+
+#### Other functions
+There are other functions:
+* str_capitalize
+* str_clean
+* str_first_upper
+* str_is_email
+* str_pattern
+* truncate
