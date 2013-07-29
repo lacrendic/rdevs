@@ -4,36 +4,37 @@ str_first_upper <- function(string){
 }
 
 str_pattern <- function(string, pattern){
-  library(stringr)
+  require(stringr)
   string[str_detect(string, pattern)]
 }
 
 str_capitalize <- function(strings){
-  #   laply(strings, function(x){r
-  #     x <- tolower(x)
-  #     x <- str_split(x, " ")
-  #     paste(laply(x, str_first_upper), collapse=" ")
-  #   })
   # http://stackoverflow.com/questions/6364783/capitalize-the-first-letter-of-both-words-in-a-two-word-string/6365349#6365349
   gsub("(^|[[:space:]])([[:alpha:]])", "\\1\\U\\2", tolower(strings), perl=TRUE)
 }
 
 
-
-
 str_clean <- function(string,
                       remove.punct = TRUE,
-                      remove.digits = TRUE,
+                      remove.digit = TRUE,
                       remove.accent = TRUE,
                       trim = TRUE,
                       to.lower = TRUE){
-  
+  require(stringr)
   if(remove.punct)     string <- gsub("[[:punct:]]", "", string)
   if(remove.digits)    string <- gsub("[[:digit:]]", "", string)
-  if(remove.accent)    string <- iconv(string, from="UTF-8", to="ASCII//TRANSLIT")  
+  if(remove.accent)    string <- iconv(string, from="UTF-8", to="ASCII//TRANSLIT")  # https://stat.ethz.ch/pipermail/r-help/2010-September/251833.html
   if(to.lower)         string <- tolower(string)
-  if(trim)             string <- gsub('^+ | +$','', string)
+  if(trim)             string <- str_trim(string)
   
+  return(string)
+}
+
+str_to_humans <- function(string){
+  return(string)
+}
+
+str_to_humans <- function(string){
   return(string)
 }
 
