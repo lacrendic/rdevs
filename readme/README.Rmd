@@ -58,6 +58,13 @@ writetable(t1, "excel_file.xlsx")
 writetable(t2, "txt_file.txt")
 ```
 
+Also support `json` format.
+
+```{r, message=FALSE}
+data(mtcars)
+writetable(mtcars, "file.json")
+```
+
 #### Reading tables
 
 The function `readtable` require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the `rbind.fill` function in the `plyr` package.
@@ -69,6 +76,8 @@ table <- readtable(c("excel_file.xlsx", "txt_file.txt"))
 ```{r}
 table
 ```
+
+
 
 #### Other functions
 There are other functions and others in development:

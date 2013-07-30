@@ -18,6 +18,13 @@ You can install `shoRcut` from `github` using the `devtools` package.
 ```r
 library(devtools)
 install_github("shoRtcut", "jbkunst")
+```
+
+```
+## Error: Command failed (1)
+```
+
+```r
 library(shoRtcut)
 ```
 

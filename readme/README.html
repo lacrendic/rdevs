@@ -191,12 +191,7 @@ hljs.initHighlightingOnLoad();
 
 <pre><code class="r">library(devtools)
 install_github(&quot;shoRtcut&quot;, &quot;jbkunst&quot;)
-</code></pre>
-
-<pre><code>## Error: Command failed (1)
-</code></pre>
-
-<pre><code class="r">library(shoRtcut)
+library(shoRtcut)
 </code></pre>
 
 <h3>Some functions</h3>
@@ -276,6 +271,15 @@ t2 &lt;- cbind(tail(cars, 3), var2 = &quot;text&quot;)
 
 writetable(t1, &quot;excel_file.xlsx&quot;)
 writetable(t2, &quot;txt_file.txt&quot;)
+</code></pre>
+
+<p>Also support <code>json</code> format.</p>
+
+<pre><code class="r">data(mtcars)
+writetable(mtcars, &quot;file.json&quot;)
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;adply&quot;
 </code></pre>
 
 <h4>Reading tables</h4>
