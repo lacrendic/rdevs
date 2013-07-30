@@ -4,4 +4,6 @@ importFrom(xlsx)
 
 export(
 	writetable, readtable, freqtable,
-	str_capitalize, str_clean, str_first_upper, str_is_email, str_pattern)
+	str_capitalize, str_clean, str_first_upper, str_is_email, str_pattern,
+	plot_bar, plot_density, plot_hist, plot_pareto, plot_pie,
+	truncate, df_to_json)

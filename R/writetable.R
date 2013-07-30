@@ -4,7 +4,7 @@ writetable <- function(data, name = "data.txt",  row.names = F, ...){
     name <- paste(name, ".txt", sep = "")
   }
   ext <- tolower(unlist(strsplit(name, "\\."))[length(unlist(strsplit(name, "\\.")))])
-  if(!ext %in% c("txt","csv","xlsx","xls", "psv")){
+  if(!ext %in% c("txt","csv","xlsx","xls", "psv", "json")){
 	stop("No posible extension")
   }
   if(ext == "txt") write.table(data, name, dec = ".", sep = "\t", col.names = TRUE, quote = FALSE, row.names = row.names, ...)
@@ -17,4 +17,5 @@ writetable <- function(data, name = "data.txt",  row.names = F, ...){
     addDataFrame(data, createSheet(wb), colnamesStyle=style1, row.names=row.names)
     saveWorkbook(wb, name)
   }
+  if(ext == "json") writeLines(text=df_to_json(data), con=name)
 }

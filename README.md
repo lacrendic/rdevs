@@ -18,13 +18,6 @@ You can install `shoRcut` from `github` using the `devtools` package.
 ```r
 library(devtools)
 install_github("shoRtcut", "jbkunst")
-```
-
-```
-## Error: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
-```
-
-```r
 library(shoRtcut)
 ```
 
@@ -156,7 +149,7 @@ table
 
 
 #### Other functions
-There are other functions:
+There are other functions and others in development:
 * str_capitalize
 * str_clean
 * str_first_upper

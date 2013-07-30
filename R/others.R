@@ -5,3 +5,10 @@ truncate <- <- function(x, inf = -Inf, sup = Inf){
   x <- ifelse(x>inf,x,inf)
   return(x)
 }
+
+df_to_json <- function(df){
+  jss <- adply(df, 1, toJSON)$V1
+  jss <- sprintf("\t%s\n", jss)
+  jss <- c("{", jss, "}")
+  jss
+}
