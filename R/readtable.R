@@ -15,6 +15,23 @@ readtable <- function(files, ...){
       library(foreign)
       return(read.spss(name, to.data.frame = T))
     }
+    if(ext = "json"){
+      l <- fromJSON(file=name)
+      d <- ldply(l, function(x){
+        d <- data.frame(t(unlist(x)), stringsAsFactors=FALSE)
+        names(d) <- names(x)
+        d
+      })
+      
+      for(c in seq(ncol(d))){
+        if(!all(is.na(as.numeric(d[,c])))){
+          d[,c] <- as.numeric(v)
+        } 
+      }
+      
+      return(d)
+      
+    }
     if(ext == "sas7bdat"){ library(sas7bdat); return(read.sas7bdat(name))}
     if(ext %in% c("xlsx","xls")){
 		library(xlsx)
