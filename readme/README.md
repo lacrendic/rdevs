@@ -18,13 +18,6 @@ You can install `shoRcut` from `github` using the `devtools` package.
 ```r
 library(devtools)
 install_github("shoRtcut", "jbkunst")
-```
-
-```
-## Error: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
-```
-
-```r
 library(shoRtcut)
 ```
 
@@ -138,7 +131,7 @@ writetable(mtcars, "file.json")
 ```
 
 ```
-## Error: could not find function "adply"
+## Error: object 'toJSON' not found
 ```
 
 

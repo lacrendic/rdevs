@@ -2,6 +2,7 @@ importFrom(plyr)
 importFrom(scales)
 importFrom(ggplot2)
 importFrom(xlsx)
+importFrom(rjson)
 
 export(
 	writetable, readtable, freqtable,
