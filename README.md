@@ -165,6 +165,20 @@ plot_bar(credit$marital_status)
 
 
 
+```r
+plot_hist(credit$age)
+```
+
+![plot of chunk unnamed-chunk-10](readme/figure/unnamed-chunk-10.png) 
+
+
+
+```r
+plot_density(credit$payment_day)
+```
+
+![plot of chunk unnamed-chunk-11](readme/figure/unnamed-chunk-11.png) 
+
 
 #### Other functions
 There are other functions and others in development:

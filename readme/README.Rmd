@@ -80,12 +80,18 @@ table
 ```
 
 #### Plot functions
-```{r message=FALSE, }
+```{r message=FALSE, fig.height=5, fig.width=5}
 data(credit)
 plot_bar(credit$marital_status)
 ```
 
+```{r message=FALSE, fig.height=5, fig.width=5}
+plot_hist(credit$age)
+```
 
+```{r message=FALSE, fig.height=5, fig.width=5}
+plot_density(credit$payment_day)
+```
 
 #### Other functions
 There are other functions and others in development:
@@ -95,3 +101,5 @@ There are other functions and others in development:
 * str_is_email
 * str_pattern
 * truncate
+* plot_pie
+* plot_pareto

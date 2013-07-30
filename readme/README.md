@@ -172,6 +172,20 @@ plot_bar(credit$marital_status)
 
 
 
+```r
+plot_hist(credit$age)
+```
+
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10.png) 
+
+
+
+```r
+plot_density(credit$payment_day)
+```
+
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11.png) 
+
 
 #### Other functions
 There are other functions and others in development:
@@ -181,3 +195,5 @@ There are other functions and others in development:
 * str_is_email
 * str_pattern
 * truncate
+* plot_pie
+* plot_pareto
