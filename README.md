@@ -18,13 +18,6 @@ You can install `shoRcut` from `github` using the `devtools` package.
 ```r
 library(devtools)
 install_github("shoRtcut", "jbkunst")
-```
-
-```
-## Error: Command failed (1)
-```
-
-```r
 library(shoRtcut)
 ```
 
@@ -129,6 +122,19 @@ writetable(t2, "txt_file.txt")
 ```
 
 
+Also support `json` format.
+
+
+```r
+data(mtcars)
+writetable(mtcars, "file.json")
+```
+
+```
+## Error: could not find function "adply"
+```
+
+
 #### Reading tables
 
 The function `readtable` require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the `rbind.fill` function in the `plyr` package.
@@ -153,6 +159,8 @@ table
 ## 5    24  120  <NA> text
 ## 6    25   85  <NA> text
 ```
+
+
 
 
 #### Other functions
