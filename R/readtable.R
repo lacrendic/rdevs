@@ -15,7 +15,7 @@ readtable <- function(files, ...){
       library(foreign)
       return(read.spss(name, to.data.frame = T))
     }
-    if(ext = "json"){
+    if(ext == "json"){
       l <- fromJSON(file=name)
       d <- ldply(l, function(x){
         d <- data.frame(t(unlist(x)), stringsAsFactors=FALSE)
