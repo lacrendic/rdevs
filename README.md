@@ -7,9 +7,6 @@ shoRtcut is an R package to make the life with R even more easier.
 You can install `shoRcut` from `github` using the `devtools` package.
 
 
-```
-## [1] TRUE
-```
 
 
 
@@ -18,13 +15,6 @@ You can install `shoRcut` from `github` using the `devtools` package.
 ```r
 library(devtools)
 install_github("shoRtcut", "jbkunst")
-```
-
-```
-## Error: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
-```
-
-```r
 library(shoRtcut)
 ```
 
