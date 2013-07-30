@@ -2,9 +2,10 @@ readtable <- function(files, ...){
   library(plyr)
   # 20120314: Use of the function ldply to load more than 1 file
   # 20130409: Support pipe separated values
+  # 20130720: Support json
   read.table.aux <- function(name, ...){
     ext <- tolower(unlist(strsplit(name, "\\."))[length(unlist(strsplit(name, "\\.")))])
-    ext_support <- c("txt","csv","xlsx","xls","dbf","sas7bdat","sav","tsv","dat", "psv")
+    ext_support <- c("txt","csv","xlsx","xls","dbf","sas7bdat","sav","tsv","dat", "psv", "json")
     if(!ext %in% ext_support){
       stop("No posible format (extension)")
     }
