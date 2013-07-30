@@ -29,6 +29,7 @@ plot_bar <- function(variable, show.values = TRUE, sort.by.count = TRUE, color =
   
   if(transpose) p <- p + coord_flip()
   
+  p <- p + ylab(NULL) + xlab(NULL)
   return(p)
   
 }

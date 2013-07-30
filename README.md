@@ -137,10 +137,6 @@ data(mtcars)
 writetable(mtcars, "file.json")
 ```
 
-```
-## Error: could not find function "adply"
-```
-
 
 #### Reading tables
 
@@ -166,6 +162,16 @@ table
 ## 5    24  120  <NA> text
 ## 6    25   85  <NA> text
 ```
+
+
+#### Plot functions
+
+```r
+data(credit)
+plot_bar(credit$marital_status)
+```
+
+![plot of chunk unnamed-chunk-9](readme/figure/unnamed-chunk-9.png) 
 
 
 

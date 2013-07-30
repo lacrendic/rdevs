@@ -7,9 +7,6 @@ shoRtcut is an R package to make the life with R even more easier.
 You can install `shoRcut` from `github` using the `devtools` package.
 
 
-```
-## [1] TRUE
-```
 
 
 
@@ -130,10 +127,6 @@ data(mtcars)
 writetable(mtcars, "file.json")
 ```
 
-```
-## Error: object 'toJSON' not found
-```
-
 
 #### Reading tables
 
@@ -159,6 +152,16 @@ table
 ## 5    24  120  <NA> text
 ## 6    25   85  <NA> text
 ```
+
+
+#### Plot functions
+
+```r
+data(credit)
+plot_bar(credit$marital_status)
+```
+
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9.png) 
 
 
 
