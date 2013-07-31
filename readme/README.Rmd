@@ -74,23 +74,24 @@ The function `readtable` require the names of files to read. You can read simoul
 
 ```{r message=FALSE, }
 table <- readtable(c("excel_file.xlsx", "txt_file.txt"))
-```
-```{r}
 table
 ```
 
 #### Plot functions
+
+There are shortcuts functions to plot distributions of variables based on `ggplot2` package.
+
 ```{r message=FALSE, fig.height=5, fig.width=5}
 data(credit)
 plot_bar(credit$marital_status)
 ```
 
 ```{r message=FALSE, fig.height=5, fig.width=5}
-plot_hist(credit$age)
+plot_hist(credit$age) + ggtitle("A title") + xlab("I'm here, in the xlab")
 ```
 
 ```{r message=FALSE, fig.height=5, fig.width=5}
-plot_density(credit$payment_day)
+plot_density(credit$payment_day, color="darkred") 
 ```
 
 #### Other functions
