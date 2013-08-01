@@ -17,7 +17,7 @@ rm(list=ls())
 
 ```{r, message=FALSE}
 library(devtools)
-# install_github("shoRtcut", "jbkunst")
+install_github("shoRtcut", "jbkunst")
 library(shoRtcut)
 ```
 
