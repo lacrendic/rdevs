@@ -17,7 +17,7 @@ rm(list=ls())
 
 ```{r, message=FALSE}
 library(devtools)
-install_github("shoRtcut", "jbkunst")
+# install_github("shoRtcut", "jbkunst")
 library(shoRtcut)
 ```
 
@@ -48,19 +48,20 @@ freqtable(credit$marital_status, credit$residence_type,
 
 #### Exporting tables
 
-The function `writetable` requirev the name (with path if you want) of the file with the extension and the `data.frame` to export. 
+The function `writetable` requires the name (reltavie or full path) of the file with the extension and the `data.frame` to export. Also support `json` format.
 
 ```{r, message=FALSE}
-data(cars)
+data(iris)
 
-t1 <- cbind(head(cars, 3), var1 = "excel")
-t2 <- cbind(tail(cars, 3), var2 = "text")
+t1 <- cbind(head(iris, 3), from = "excel")
+t2 <- cbind(tail(iris, 3), from = "text")
+t3 <- cbind(head(iris, 3), other_from = "json")
 
 writetable(t1, "excel_file.xlsx")
 writetable(t2, "txt_file.txt")
+writetable(t3, "json_file.json")
 ```
 
-Also support `json` format.
 
 ```{r, message=FALSE}
 data(mtcars)
@@ -73,7 +74,8 @@ The function `readtable` require the names of files to read. You can read simoul
 
 
 ```{r message=FALSE, }
-table <- readtable(c("excel_file.xlsx", "txt_file.txt"))
+table <- readtable(files=c("excel_file.xlsx", "txt_file.txt"))
+table <- readtable(files=c("json_file.json"))
 table
 ```
 
