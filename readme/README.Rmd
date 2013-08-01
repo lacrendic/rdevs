@@ -73,10 +73,14 @@ writetable(mtcars, "file.json")
 The function `readtable` require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the `rbind.fill` function in the `plyr` package.
 
 
-```{r message=FALSE, }
-table <- readtable(files=c("excel_file.xlsx", "txt_file.txt"))
-table <- readtable(files=c("json_file.json"))
-table
+```{r message=FALSE, warning=FALSE}
+t1 <- readtable(files=c("excel_file.xlsx", "txt_file.txt", "json_file.json"))
+t1
+```
+
+```{r message=FALSE, warning=FALSE}
+t2 <- readtable(files="file.json")
+head(t2)
 ```
 
 #### Plot functions
