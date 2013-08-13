@@ -22,33 +22,12 @@ library(shoRtcut)
 ```
 
 
-
-
-### Some functions
-
-#### Frequency table
-
-The function `freqtable` return a `data.frame` with the information of the counts of the levels of variable.
-
-```{r}
-data(credit)
-freqtable(credit$marital_status)
-freqtable(credit$marital_status, add.total=FALSE)
-freqtable(credit$residence_type, sort.by.count=TRUE, pretty=TRUE)
-```
-
-This function also make a cross table if `variable2` argument is given.
-
-```{r}
-freqtable(credit$marital_status, credit$residence_type)
-freqtable(credit$marital_status, credit$residence_type,
-          add.total=FALSE, pretty=TRUE)
-```
+### Some functions in the package ShoRtcut
 
 
 #### Exporting tables
 
-The function `writetable` requires the name (reltavie or full path) of the file with the extension and the `data.frame` to export. Also support `json` format.
+The function `writetable` requires the name (relative or full path) of the file with the extension and the `data.frame` to export. Also support `json` format.
 
 ```{r, message=FALSE}
 data(iris)
@@ -73,15 +52,32 @@ writetable(mtcars, "file.json")
 The function `readtable` require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the `rbind.fill` function in the `plyr` package.
 
 
-```{r message=FALSE, warning=FALSE}
-t1 <- readtable(files=c("excel_file.xlsx", "txt_file.txt", "json_file.json"))
-t1
+```{r message=FALSE, }
+table <- readtable(files=c("excel_file.xlsx", "txt_file.txt"))
+table <- readtable(files=c("json_file.json"))
+table
 ```
 
-```{r message=FALSE, warning=FALSE}
-t2 <- readtable(files="file.json")
-head(t2)
+
+#### Frequency table
+
+The function `freqtable` return a `data.frame` with the information of the counts of the levels of variable.
+
+```{r}
+data(credit)
+freqtable(credit$marital_status)
+freqtable(credit$marital_status, add.total=FALSE)
+freqtable(credit$residence_type, sort.by.count=TRUE, pretty=TRUE)
 ```
+
+This function also make a cross table if `variable2` argument is given.
+
+```{r}
+freqtable(credit$marital_status, credit$residence_type)
+freqtable(credit$marital_status, credit$residence_type,
+          add.total=FALSE, pretty=TRUE)
+```
+
 
 #### Plot functions
 

@@ -20,9 +20,66 @@ library(shoRtcut)
 
 
 
+### Some functions in the package ShoRtcut
 
 
-### Some functions
+#### Exporting tables
+
+The function `writetable` requires the name (relative or full path) of the file with the extension and the `data.frame` to export. Also support `json` format.
+
+
+```r
+data(iris)
+
+t1 <- cbind(head(iris, 3), from = "excel")
+t2 <- cbind(tail(iris, 3), from = "text")
+t3 <- cbind(head(iris, 3), other_from = "json")
+
+writetable(t1, "excel_file.xlsx")
+writetable(t2, "txt_file.txt")
+writetable(t3, "json_file.json")
+```
+
+
+
+
+```r
+data(mtcars)
+writetable(mtcars, "file.json")
+```
+
+
+#### Reading tables
+
+The function `readtable` require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the `rbind.fill` function in the `plyr` package.
+
+
+
+```r
+table <- readtable(files = c("excel_file.xlsx", "txt_file.txt"))
+table <- readtable(files = c("json_file.json"))
+```
+
+```
+## Warning: NAs introduced by coercion
+```
+
+```
+## Warning: NAs introduced by coercion
+```
+
+```r
+table
+```
+
+```
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species other_from
+## 1          5.1         3.5          1.4         0.2  setosa       json
+## 2          4.9         3.0          1.4         0.2  setosa       json
+## 3          4.7         3.2          1.3         0.2  setosa       json
+```
+
+
 
 #### Frequency table
 
@@ -103,84 +160,6 @@ freqtable(credit$marital_status, credit$residence_type, add.total = FALSE, prett
 
 
 
-#### Exporting tables
-
-The function `writetable` requires the name (reltavie or full path) of the file with the extension and the `data.frame` to export. Also support `json` format.
-
-
-```r
-data(iris)
-
-t1 <- cbind(head(iris, 3), from = "excel")
-t2 <- cbind(tail(iris, 3), from = "text")
-t3 <- cbind(head(iris, 3), other_from = "json")
-
-writetable(t1, "excel_file.xlsx")
-writetable(t2, "txt_file.txt")
-writetable(t3, "json_file.json")
-```
-
-
-
-
-```r
-data(mtcars)
-writetable(mtcars, "file.json")
-```
-
-
-#### Reading tables
-
-The function `readtable` require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the `rbind.fill` function in the `plyr` package.
-
-
-
-```r
-t1 <- readtable(files = c("excel_file.xlsx", "txt_file.txt", "json_file.json"))
-t1
-```
-
-```
-##   Sepal.Length Sepal.Width Petal.Length Petal.Width   Species  from
-## 1          5.1         3.5          1.4         0.2    setosa excel
-## 2          4.9         3.0          1.4         0.2    setosa excel
-## 3          4.7         3.2          1.3         0.2    setosa excel
-## 4          6.5         3.0          5.2         2.0 virginica  text
-## 5          6.2         3.4          5.4         2.3 virginica  text
-## 6          5.9         3.0          5.1         1.8 virginica  text
-## 7          5.1         3.5          1.4         0.2    setosa  <NA>
-## 8          4.9         3.0          1.4         0.2    setosa  <NA>
-## 9          4.7         3.2          1.3         0.2    setosa  <NA>
-##   other_from
-## 1       <NA>
-## 2       <NA>
-## 3       <NA>
-## 4       <NA>
-## 5       <NA>
-## 6       <NA>
-## 7       json
-## 8       json
-## 9       json
-```
-
-
-
-```r
-t2 <- readtable(files = "file.json")
-head(t2)
-```
-
-```
-##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-## 3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
-```
-
-
 #### Plot functions
 
 There are shortcuts functions to plot distributions of variables based on `ggplot2` package.
@@ -191,7 +170,7 @@ data(credit)
 plot_bar(credit$marital_status)
 ```
 
-![plot of chunk unnamed-chunk-9](readme/figure/unnamed-chunk-9.png) 
+![plot of chunk unnamed-chunk-8](readme/figure/unnamed-chunk-8.png) 
 
 
 
@@ -199,7 +178,7 @@ plot_bar(credit$marital_status)
 plot_hist(credit$age) + ggtitle("A title") + xlab("I'm here, in the xlab")
 ```
 
-![plot of chunk unnamed-chunk-10](readme/figure/unnamed-chunk-10.png) 
+![plot of chunk unnamed-chunk-9](readme/figure/unnamed-chunk-9.png) 
 
 
 
@@ -207,7 +186,7 @@ plot_hist(credit$age) + ggtitle("A title") + xlab("I'm here, in the xlab")
 plot_density(credit$payment_day, color = "darkred")
 ```
 
-![plot of chunk unnamed-chunk-11](readme/figure/unnamed-chunk-11.png) 
+![plot of chunk unnamed-chunk-10](readme/figure/unnamed-chunk-10.png) 
 
 
 #### Other functions
