@@ -1,3 +1,13 @@
+str_left <- function(strings, nchars){
+  s <- substring(strings, 0, nchars)
+  return(s)
+}
+
+str_right <- function(strings, nchars){
+  s <- substring(strings, nchar(strings) - nchars + 1, nchar(strings))
+  return(s)
+}
+
 str_first_upper <- function(string){
   string <- tolower(string)
   paste(toupper(substring(string, 1, 1)),substring(string, 2, nchar(string)), sep = "")
