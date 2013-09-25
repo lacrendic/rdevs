@@ -98,6 +98,8 @@ plot_density(credit$payment_day, color="darkred")
 
 #### Other functions
 There are other functions and others in development:
+* str_left
+* str_rigth
 * str_capitalize
 * str_clean
 * str_first_upper

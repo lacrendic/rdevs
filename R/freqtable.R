@@ -38,6 +38,7 @@ freqtable <- function(variable, variable2, sort.by.count = FALSE, pretty = FALSE
       table$cumrelfreq <- percent(table$cumrelfreq) 
     }
     
+	names(table)[1] <- "category"
     return(table)
     
   } else {
@@ -60,7 +61,8 @@ freqtable <- function(variable, variable2, sort.by.count = FALSE, pretty = FALSE
       library(scales)
       table[,-1] <- prettyNum(table[,-1], big.mark=",")
     }
-    
+	
+    names(table)[1] <- "categories"
     return(table)
   }
   
