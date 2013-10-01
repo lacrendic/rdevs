@@ -1,13 +1,14 @@
 plot_bar <- function(variable, show.values = TRUE, sort.by.count = TRUE, color = "darkred", transpose = FALSE){
   require(ggplot2)
   require(plyr)
+  # Remeberber kid, this function depends on 'freqtable' function.
   
   t1 <- freqtable(variable, sort.by.count=sort.by.count, add.total=FALSE)
   t2 <- freqtable(variable, sort.by.count=sort.by.count, add.total=FALSE, pretty=TRUE)
   names(t2)[2:5] <- paste("label", names(t2)[2:5], sep="_")
   
   t <- join(t1, t2)
-  t$variable <- factor(t$variable, levels=t1$variable)
+  t$variable <- factor(t$category, levels=t1$category)
   t$id <- seq(nrow(t))
   
   p <- ggplot(t, aes(x = variable)) +

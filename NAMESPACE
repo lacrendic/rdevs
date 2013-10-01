@@ -8,5 +8,5 @@ export(
 	writetable, readtable, freqtable, df_summary,
 	str_capitalize, str_clean, str_first_upper, str_is_email, str_pattern, str_left, str_right,
 	plot_bar, plot_density, plot_hist, plot_pareto, plot_pie,
-	plot_df_dist_formula,
+	plot_df_dist,
 	truncate, df_to_json)
