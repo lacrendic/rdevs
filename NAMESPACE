@@ -3,10 +3,11 @@ importFrom(scales)
 importFrom(ggplot2)
 importFrom(xlsx)
 importFrom(rjson)
+importFrom(zoo)
 
 export(
 	writetable, readtable, freqtable, df_summary,
 	str_capitalize, str_clean, str_first_upper, str_is_email, str_pattern, str_left, str_right,
 	plot_bar, plot_density, plot_hist, plot_pareto, plot_pie,
-	plot_df_dist,
+	plot_df_dist, plot_calendar_hm,
 	truncate, df_to_json)
