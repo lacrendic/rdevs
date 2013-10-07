@@ -1,5 +1,5 @@
 plot_calendar_hm <- function(dates, values){
-  #   date_seq <- seq.Date(as.Date(ymd("20120803")), as.Date(ymd("20141003")), by=1)
+  #   date_seq <- seq.Date(as.Date(ymd("20120101")), as.Date(ymd("20130101")), by=1)
   #   dates <- sample(date_seq, size = round(length(date_seq)*.9))
   #   values <- rnorm(length(dates))
   #   plot_calendar_hm(dates, values)
@@ -10,12 +10,21 @@ plot_calendar_hm <- function(dates, values){
   library(plyr)
   library(lubridate)
   library(zoo)
-  if(!is.Date(dates)) stop("No dates")
+#   if(!is.Date(dates)) stop("No dates")
   if(!length(dates)==length(values)) stop("Dates and values are not the same length")
   
-  df <- data.frame(dates, values, row.names=NULL)
-  df <- join(data.frame(dates = seq.Date(min(dates), max(dates), by=1)), df, by = "dates")
-  df <- df[order(dates),]
+  s <- ymd(paste(year(min(dates)), month(min(dates)), "1", sep = "-"))
+  f <- ymd(paste(year(max(dates)), month(max(dates)), "1", sep = "-"))
+  month(f) <- month(f) + 1
+  f <- f - days(1)
+    
+  df <- join(data.frame(dates = seq.Date(as.Date(s), as.Date(f), by=1)),
+             data.frame(dates, values, row.names=NULL),
+             by = "dates")
+  #   head(df); tail(df)
+  
+  df <- df[order(df$dates),]
+  
   df <- transform(df,
                   year = year(dates),
                   month = month(dates),
@@ -23,11 +32,16 @@ plot_calendar_hm <- function(dates, values){
                   weekday = wday(dates),
                   weekdayf = wday(dates, label=TRUE),
                   yearmonth = as.yearmon(dates),
-                  week = week(dates),
-                  day = day(dates))
-  df <- ddply(df,  .(yearmonth), transform, monthweek = 1 + week - min(week))
-  #   df <- transform(df, monthweek = ifelse(weekday %in% c(1,2), monthweek+1, monthweek))
+                  yearmonthf = factor(as.yearmon(dates)),
+                  week = as.numeric(format(dates,"%W")), #week(dates),
+                  day = day(dates),
+                  monthday =  mday(dates),
+                  monthweek = ceiling(mday(dates)/7))
+  df <- ddply(df,  .(yearmonthf), transform, monthweek = 1 + week - min(week))
+  df$weekdayf <- factor(as.character(df$weekdayf), levels=c("Mon","Tues","Wed","Thurs","Fri","Sat","Sun"))
   
+  
+  df <- df[complete.cases(df),]
   p <- ggplot(df, aes(monthweek, weekdayf, fill = values)) + 
     geom_tile(colour = "white") +
     facet_grid(year ~ monthf) +
@@ -38,6 +52,7 @@ plot_calendar_hm <- function(dates, values){
   print(p)
   return(p)
 }
+
 
 
 
