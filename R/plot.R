@@ -100,8 +100,8 @@ plot_dist <- function(variable, indicator,  split){
       p <- p + stat_smooth(aes(x=variable,y=indicator), color ="darkred")
     } else{
       p <- p +
-        stat_summary(aes(x=variable,y=indicator), fun.y=mean, colour="darkred", geom="point") +
-        stat_summary(aes(x=variable,y=indicator, group = 1), fun.y=mean, colour="darkred", geom="line")
+        stat_summary(aes(x=variable,y=indicator), fun.y=mean, colour="red", geom="point") +
+        stat_summary(aes(x=variable,y=indicator, group = 1), fun.y=mean, colour="red", geom="line")
     }
   }
   
