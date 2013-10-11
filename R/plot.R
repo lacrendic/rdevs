@@ -2,7 +2,7 @@ plot_bar <- function(variable, show.values = TRUE, sort.by.count = TRUE, color =
   require(ggplot2)
   require(plyr)
   # Remeberber kid, this function depends on 'freqtable' function.
-  
+  variable <- ifelse(is.na(variable), "NA", variable)
   t1 <- freqtable(variable, sort.by.count=sort.by.count, add.total=FALSE)
   t2 <- freqtable(variable, sort.by.count=sort.by.count, add.total=FALSE, pretty=TRUE)
   names(t2)[2:5] <- paste("label", names(t2)[2:5], sep="_")
