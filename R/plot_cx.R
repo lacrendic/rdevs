@@ -1,27 +1,3 @@
-
-
-plot_rt <- function(variable, indicator,  split){
-  df <- data.frame(variable = variable, indicator = indicator)
-  if(!missing(split)) df <- cbind(df, split = split)
-  head(df)
-  p <- ggplot(df) +  geom_bar(aes(variable, ..count../sum(..count..)))
-  if(is.numeric(variable)){
-    p <- p + stat_smooth(aes(x=variable,y=indicator), color ="darkred")
-  } else{
-    p <- p +
-      stat_summary(aes(x=variable,y=indicator), fun.y=mean, colour="darkred", geom="point") +
-      stat_summary(aes(x=variable,y=indicator, group = 1), fun.y=mean, colour="darkred", geom="line")
-  }
-  if(!missing(split)){
-    p <- p + facet_grid(. ~ split, scales="free")
-  }
-  p <- p + xlab(NULL) + ylab(NULL) + scale_y_continuous(labels = percent)
-  print(p)
-  return(p)
-  
-}
-
-
 plot_calendar_hm <- function(dates, values){
   #   date_seq <- seq.Date(as.Date(ymd("20120101")), as.Date(ymd("20130101")), by=1)
   #   dates <- sample(date_seq, size = round(length(date_seq)*.9))

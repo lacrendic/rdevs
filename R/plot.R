@@ -31,8 +31,8 @@ plot_bar <- function(variable, show.values = TRUE, sort.by.count = TRUE, color =
   if(transpose) p <- p + coord_flip()
   
   p <- p + ylab(NULL) + xlab(NULL)
-  return(p)
   
+  return(p)
 }
 
 plot_pie <- function(variable){
@@ -81,4 +81,36 @@ plot_pareto <- function(variable, prop = TRUE, ...){
     scale_y_continuous(labels = percent_format()) +
     xlab(NULL) + ylab(NULL)
   
+}
+
+plot_dist <- function(variable, indicator,  split){
+  
+  if(!is.numeric(variable) & any(is.na(variable))){
+    variable <- ifelse(is.na(variable), "NA", variable)
+  }
+  
+  df <- data.frame(variable = variable)
+  if(!missing(indicator)) df <- cbind(df, indicator = indicator)
+  if(!missing(split)) df <- cbind(df, split = split)
+  
+  p <- ggplot(df) +  geom_bar(aes(variable, ..count../sum(..count..)))
+  
+  if(!missing(indicator)){
+    if(is.numeric(variable)){
+      p <- p + stat_smooth(aes(x=variable,y=indicator), color ="darkred")
+    } else{
+      p <- p +
+        stat_summary(aes(x=variable,y=indicator), fun.y=mean, colour="darkred", geom="point") +
+        stat_summary(aes(x=variable,y=indicator, group = 1), fun.y=mean, colour="darkred", geom="line")
+    }
+  }
+  
+  if(!missing(split)){
+    p <- p + facet_grid(. ~ split, scales="free")
+  }
+  
+  p <- p + xlab(NULL) + ylab(NULL) + scale_y_continuous(labels = percent)
+  
+  print(p)
+  return(p)
 }
