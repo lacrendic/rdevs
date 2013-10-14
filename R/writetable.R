@@ -11,7 +11,7 @@ writetable <- function(data, name = "data.txt",  row.names = F, ...){
   if(ext == "csv") write.table(data, name, dec = ",", sep = ";", col.names = TRUE, quote = FALSE, row.names = row.names, ...)
   if(ext == "psv") write.table(data, name, dec = ".", sep = "|", col.names = TRUE, quote = FALSE, row.names = row.names, ...)
   if(ext %in% c("xlsx","xls")){
-    library(xlsx)
+    require(xlsx)
     wb <- createWorkbook()
     style1 <- CellStyle(wb) + Font(wb, isBold=TRUE) + Border()
     addDataFrame(data, createSheet(wb), colnamesStyle=style1, row.names=row.names)

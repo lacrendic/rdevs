@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
 
 <title>shoRtcut</title>
 
@@ -218,15 +219,7 @@ writetable(mtcars, &quot;file.json&quot;)
 
 <pre><code class="r">table &lt;- readtable(files = c(&quot;excel_file.xlsx&quot;, &quot;txt_file.txt&quot;))
 table &lt;- readtable(files = c(&quot;json_file.json&quot;))
-</code></pre>
-
-<pre><code>## Warning: NAs introduced by coercion
-</code></pre>
-
-<pre><code>## Warning: NAs introduced by coercion
-</code></pre>
-
-<pre><code class="r">table
+table
 </code></pre>
 
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species other_from
@@ -243,7 +236,7 @@ table &lt;- readtable(files = c(&quot;json_file.json&quot;))
 freqtable(credit$marital_status)
 </code></pre>
 
-<pre><code>##   variable  freq cumfreq relfreq cumrelfreq
+<pre><code>##   category  freq cumfreq relfreq cumrelfreq
 ## 1        C 17097   17097 0.34405     0.3440
 ## 2        D  2142   19239 0.04310     0.3871
 ## 3        O  2776   22015 0.05586     0.4430
@@ -255,7 +248,7 @@ freqtable(credit$marital_status)
 <pre><code class="r">freqtable(credit$marital_status, add.total = FALSE)
 </code></pre>
 
-<pre><code>##   variable  freq cumfreq relfreq cumrelfreq
+<pre><code>##   category  freq cumfreq relfreq cumrelfreq
 ## 1        C 17097   17097 0.34405     0.3440
 ## 2        D  2142   19239 0.04310     0.3871
 ## 3        O  2776   22015 0.05586     0.4430
@@ -266,7 +259,7 @@ freqtable(credit$marital_status)
 <pre><code class="r">freqtable(credit$residence_type, sort.by.count = TRUE, pretty = TRUE)
 </code></pre>
 
-<pre><code>##   variable   freq cumfreq relfreq cumrelfreq
+<pre><code>##   category   freq cumfreq relfreq cumrelfreq
 ## 4        P 37,013  49,694   74.5%      74.5%
 ## 1        A  6,326   6,326   12.7%      87.2%
 ## 2        C  4,323  10,649    8.7%      95.9%
@@ -279,24 +272,24 @@ freqtable(credit$marital_status)
 <pre><code class="r">freqtable(credit$marital_status, credit$residence_type)
 </code></pre>
 
-<pre><code>##    variable    A    C    O     P Total.row
-## 1         C 1934  255  556 14352     17097
-## 2         D  321   79   99  1643      2142
-## 3         O  435  101  143  2097      2776
-## 4         S 3375 3872 1160 16842     25249
-## 5         V  261   16   74  2079      2430
-## 6 Total.col 6326 4323 2032 37013        NA
+<pre><code>##   categories    A    C    O     P Total.row
+## 1          C 1934  255  556 14352     17097
+## 2          D  321   79   99  1643      2142
+## 3          O  435  101  143  2097      2776
+## 4          S 3375 3872 1160 16842     25249
+## 5          V  261   16   74  2079      2430
+## 6  Total.col 6326 4323 2032 37013        NA
 </code></pre>
 
 <pre><code class="r">freqtable(credit$marital_status, credit$residence_type, add.total = FALSE, pretty = TRUE)
 </code></pre>
 
-<pre><code>##   variable      A      C      O      P
-## 1        C  1,934    255    556 14,352
-## 2        D    321     79     99  1,643
-## 3        O    435    101    143  2,097
-## 4        S  3,375  3,872  1,160 16,842
-## 5        V    261     16     74  2,079
+<pre><code>##   categories      A      C      O      P
+## 1          C  1,934    255    556 14,352
+## 2          D    321     79     99  1,643
+## 3          O    435    101    143  2,097
+## 4          S  3,375  3,872  1,160 16,842
+## 5          V    261     16     74  2,079
 </code></pre>
 
 <h4>Plot functions</h4>
@@ -304,20 +297,41 @@ freqtable(credit$marital_status)
 <p>There are shortcuts functions to plot distributions of variables based on <code>ggplot2</code> package.</p>
 
 <pre><code class="r">data(credit)
-plot_bar(credit$marital_status)
+plot_dist(credit$marital_status)
 </code></pre>
 
-<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-8"/> </p>
-
-<pre><code class="r">plot_hist(credit$age) + ggtitle(&quot;A title&quot;) + xlab(&quot;I&#39;m here, in the xlab&quot;)
+<pre><code>## Error: could not find function &quot;ggplot&quot;
 </code></pre>
 
-<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-9"/> </p>
-
-<pre><code class="r">plot_density(credit$payment_day, color = &quot;darkred&quot;)
+<pre><code class="r">plot_dist(credit$age) + ggtitle(&quot;A title&quot;) + xlab(&quot;I&#39;m here, in the xlab&quot;)
 </code></pre>
 
-<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-10"/> </p>
+<pre><code>## Error: could not find function &quot;ggplot&quot;
+</code></pre>
+
+<p>You can also split the plot according a new variable.</p>
+
+<pre><code class="r">plot_dist(credit$age, split = credit$marital_status)
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;ggplot&quot;
+</code></pre>
+
+<p>Or even show a bivariate (1 or 0) response variable:</p>
+
+<pre><code class="r">plot_dist(credit$marital_status, indicator = credit$bad)
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;ggplot&quot;
+</code></pre>
+
+<pre><code class="r">
+credit &lt;- subset(credit, sex %in% c(&quot;F&quot;, &quot;M&quot;))
+plot_dist(credit$age, indicator = credit$bad, split = credit$sex)
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;ggplot&quot;
+</code></pre>
 
 <h4>Other functions</h4>
 

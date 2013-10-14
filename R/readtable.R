@@ -1,5 +1,5 @@
 readtable <- function(files, ...){
-  library(plyr)
+  require(plyr)
   # 20120314: Use of the function ldply to load more than 1 file
   # 20130409: Support pipe separated values
   # 20130720: Support json
@@ -13,7 +13,7 @@ readtable <- function(files, ...){
     if(ext == "csv") return(read.table(name, sep = ";", header = TRUE,  comment.char = "", quote = "", dec=",", ...))
     if(ext == "psv") return(read.table(name, sep = "|", header = TRUE,  comment.char = "", quote = "", dec=",", ...))
     if(ext == "sav"){
-      library(foreign)
+      require(foreign)
       return(read.spss(name, to.data.frame = T))
     }
     if(ext == "json"){
@@ -33,9 +33,9 @@ readtable <- function(files, ...){
       return(d)
       
     }
-    if(ext == "sas7bdat"){ library(sas7bdat); return(read.sas7bdat(name))}
+    if(ext == "sas7bdat"){ require(sas7bdat); return(read.sas7bdat(name))}
     if(ext %in% c("xlsx","xls")){
-		library(xlsx)
+		require(xlsx)
 		return(read.xlsx(name, sheetIndex=1, ...))
 	}
   }

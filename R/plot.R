@@ -84,7 +84,8 @@ plot_pareto <- function(variable, prop = TRUE, ...){
 }
 
 plot_dist <- function(variable, indicator,  split){
-  
+  require(ggplot2)
+  require(scales)
   if(!is.numeric(variable) & any(is.na(variable))){
     variable <- ifelse(is.na(variable), "NA", variable)
   }
@@ -97,11 +98,11 @@ plot_dist <- function(variable, indicator,  split){
   
   if(!missing(indicator)){
     if(is.numeric(variable)){
-      p <- p + stat_smooth(aes(x=variable,y=indicator), color ="darkred")
+      p <- p + stat_smooth(aes(x=variable,y=indicator), color ="darkred", se=FALSE)
     } else{
       p <- p +
         stat_summary(aes(x=variable,y=indicator), fun.y=mean, colour="red", geom="point") +
-        stat_summary(aes(x=variable,y=indicator, group = 1), fun.y=mean, colour="red", geom="line")
+        stat_summary(aes(x=variable,y=indicator, group = 1), fun.y=mean, colour="darkred", geom="line")
     }
   }
   

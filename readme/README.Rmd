@@ -7,6 +7,7 @@ shoRtcut is an R package to make the life with R even more easier.
 You can install `shoRcut` from `github` using the `devtools` package.
 
 ```{r, message=FALSE, echo=FALSE, warning=FALSE}
+options(warn=-1)
 d <- readLines("README.md")
 d <- gsub("\\(figure\\/", "\\(readme\\/figure\\/", d)
 writeLines(d, "../README.md")
@@ -85,15 +86,24 @@ There are shortcuts functions to plot distributions of variables based on `ggplo
 
 ```{r message=FALSE, fig.height=5, fig.width=5}
 data(credit)
-plot_bar(credit$marital_status)
+plot_dist(credit$marital_status)
 ```
 
 ```{r message=FALSE, fig.height=5, fig.width=5}
-plot_hist(credit$age) + ggtitle("A title") + xlab("I'm here, in the xlab")
+plot_dist(credit$age) + ggtitle("A title") + xlab("I'm here, in the xlab")
 ```
 
+You can also split the plot according a new variable.
 ```{r message=FALSE, fig.height=5, fig.width=5}
-plot_density(credit$payment_day, color="darkred") 
+plot_dist(credit$age, split=credit$marital_status)
+```
+
+Or even show a bivariate (1 or 0) response variable:
+```{r message=FALSE, fig.height=5, fig.width=5}
+plot_dist(credit$marital_status, indicator=credit$bad)
+
+credit <- subset(credit, sex %in% c("F", "M"))
+plot_dist(credit$age, indicator=credit$bad, split=credit$sex)
 ```
 
 #### Other functions

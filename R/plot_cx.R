@@ -6,10 +6,10 @@ plot_calendar_hm <- function(dates, values){
   #   plot_calendar_hm(values, values)
   #   plot_calendar_hm(dates, values[-2])
   
-  library(ggplot2)
-  library(plyr)
-  library(lubridate)
-  library(zoo)
+  require(ggplot2)
+  require(plyr)
+  require(lubridate)
+  require(zoo)
 #   if(!is.Date(dates)) stop("No dates")
   if(!length(dates)==length(values)) stop("Dates and values are not the same length")
   
@@ -57,8 +57,8 @@ plot_calendar_hm <- function(dates, values){
 
 
 plot_df_dist <- function(df, facet_formula, responses, file = "output_plot_dist_by_var.pdf", ...){
-  library(ggplot2)
-  library(scales)
+  require(ggplot2)
+  require(scales)
   
   pdf(file, ...)
   colors <- c("#A61000", "#1B0773", "#007D1C", "#FFCE00")

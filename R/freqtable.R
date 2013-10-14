@@ -31,7 +31,7 @@ freqtable <- function(variable, variable2, sort.by.count = FALSE, pretty = FALSE
     
     
     if(pretty){
-      library(scales)
+      require(scales)
       table$freq <- prettyNum(table$freq, big.mark=",")
       table$cumfreq <- prettyNum(table$cumfreq, big.mark=",")
       table$relfreq <- percent(table$relfreq)
@@ -58,7 +58,7 @@ freqtable <- function(variable, variable2, sort.by.count = FALSE, pretty = FALSE
     }
     
     if(pretty){
-      library(scales)
+      require(scales)
       table[,-1] <- prettyNum(table[,-1], big.mark=",")
     }
 	
