@@ -163,6 +163,8 @@ data(credit)
 plot_dist(credit$marital_status)
 ```
 
+![plot of chunk unnamed-chunk-8](readme/figure/unnamed-chunk-81.png) ![plot of chunk unnamed-chunk-8](readme/figure/unnamed-chunk-82.png) 
+
 
 
 ```r
