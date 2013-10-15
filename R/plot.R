@@ -112,6 +112,5 @@ plot_dist <- function(variable, indicator,  split){
   
   p <- p + xlab(NULL) + ylab(NULL) + scale_y_continuous(labels = percent)
   
-  print(p)
   return(p)
 }
