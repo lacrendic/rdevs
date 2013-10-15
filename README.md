@@ -163,7 +163,7 @@ data(credit)
 plot_dist(credit$marital_status)
 ```
 
-![plot of chunk unnamed-chunk-8](readme/figure/unnamed-chunk-81.png) ![plot of chunk unnamed-chunk-8](readme/figure/unnamed-chunk-82.png) 
+![plot of chunk unnamed-chunk-8](readme/figure/unnamed-chunk-8.png) 
 
 
 
@@ -171,7 +171,7 @@ plot_dist(credit$marital_status)
 plot_dist(credit$age) + ggtitle("A title") + xlab("I'm here, in the xlab")
 ```
 
-![plot of chunk unnamed-chunk-9](readme/figure/unnamed-chunk-91.png) ![plot of chunk unnamed-chunk-9](readme/figure/unnamed-chunk-92.png) 
+![plot of chunk unnamed-chunk-9](readme/figure/unnamed-chunk-9.png) 
 
 
 You can also split the plot according a new variable.
@@ -180,7 +180,7 @@ You can also split the plot according a new variable.
 plot_dist(credit$age, split = credit$marital_status)
 ```
 
-![plot of chunk unnamed-chunk-10](readme/figure/unnamed-chunk-101.png) ![plot of chunk unnamed-chunk-10](readme/figure/unnamed-chunk-102.png) 
+![plot of chunk unnamed-chunk-10](readme/figure/unnamed-chunk-10.png) 
 
 
 Or even show a bivariate (1 or 0) response variable:
@@ -189,7 +189,7 @@ Or even show a bivariate (1 or 0) response variable:
 plot_dist(credit$marital_status, indicator = credit$bad)
 ```
 
-![plot of chunk unnamed-chunk-11](readme/figure/unnamed-chunk-111.png) ![plot of chunk unnamed-chunk-11](readme/figure/unnamed-chunk-112.png) 
+![plot of chunk unnamed-chunk-11](readme/figure/unnamed-chunk-111.png) 
 
 ```r
 
@@ -197,7 +197,7 @@ credit <- subset(credit, sex %in% c("F", "M"))
 plot_dist(credit$age, indicator = credit$bad, split = credit$sex)
 ```
 
-![plot of chunk unnamed-chunk-11](readme/figure/unnamed-chunk-113.png) ![plot of chunk unnamed-chunk-11](readme/figure/unnamed-chunk-114.png) 
+![plot of chunk unnamed-chunk-11](readme/figure/unnamed-chunk-112.png) 
 
 
 #### Other functions
