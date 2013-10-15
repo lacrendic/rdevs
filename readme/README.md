@@ -108,6 +108,10 @@ freqtable(credit$residence_type, sort.by.count = TRUE, pretty = TRUE)
 ```
 
 ```
+## Loading required package: scales
+```
+
+```
 ##   category   freq cumfreq relfreq cumrelfreq
 ## 4        P 37,013  49,694   74.5%      74.5%
 ## 1        A  6,326   6,326   12.7%      87.2%
@@ -159,9 +163,7 @@ data(credit)
 plot_dist(credit$marital_status)
 ```
 
-```
-## Error: could not find function "ggplot"
-```
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-81.png) ![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-82.png) 
 
 
 
@@ -169,9 +171,7 @@ plot_dist(credit$marital_status)
 plot_dist(credit$age) + ggtitle("A title") + xlab("I'm here, in the xlab")
 ```
 
-```
-## Error: could not find function "ggplot"
-```
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-91.png) ![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-92.png) 
 
 
 You can also split the plot according a new variable.
@@ -180,9 +180,7 @@ You can also split the plot according a new variable.
 plot_dist(credit$age, split = credit$marital_status)
 ```
 
-```
-## Error: could not find function "ggplot"
-```
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-101.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-102.png) 
 
 
 Or even show a bivariate (1 or 0) response variable:
@@ -191,9 +189,7 @@ Or even show a bivariate (1 or 0) response variable:
 plot_dist(credit$marital_status, indicator = credit$bad)
 ```
 
-```
-## Error: could not find function "ggplot"
-```
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-111.png) ![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-112.png) 
 
 ```r
 
@@ -201,9 +197,7 @@ credit <- subset(credit, sex %in% c("F", "M"))
 plot_dist(credit$age, indicator = credit$bad, split = credit$sex)
 ```
 
-```
-## Error: could not find function "ggplot"
-```
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-113.png) ![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-114.png) 
 
 
 #### Other functions
