@@ -87,7 +87,14 @@ plot_dist <- function(variable, indicator,  split){
   require(ggplot2)
   require(scales)
   if(!is.numeric(variable) & any(is.na(variable))){
-    variable <- ifelse(is.na(variable), "NA", variable)
+    if(is.factor(variable)){
+      lvls <- c(levels(variable), "NA")
+      variable <- as.character(variable)
+      variable <- ifelse(is.na(variable), "NA", variable)
+      variable <- factor(variable, levels=lvls, ordered=TRUE)
+    } else {
+      variable <- ifelse(is.na(variable), "NA", variable)  
+    }
   }
   
   df <- data.frame(variable = variable)
