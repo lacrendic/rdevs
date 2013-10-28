@@ -96,6 +96,10 @@ plot_dist <- function(variable, indicator,  split){
       variable <- ifelse(is.na(variable), "NA", variable)  
     }
   }
+  if(is.numeric(variable) & length(unique(variable))<=10){
+    variable <- as.character(variable)
+    variable <- ifelse(is.na(variable), "NA", variable)
+  }
   
   df <- data.frame(variable = variable)
   if(!missing(indicator)) df <- cbind(df, indicator = indicator)
