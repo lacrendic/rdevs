@@ -18,11 +18,11 @@ df_summary <- function(dataframe){
 summary_df <- function(v){
   data.frame(length = length(v),
              nas = sum(is.na(v)),
+             min = min(v, na.rm = TRUE), 
+             q1 = quantile(v, 0.25, na.rm = TRUE),
              median = quantile(v, 0.5, na.rm = TRUE),
              mean = mean(v, na.rm = TRUE),
-             min = min(v, na.rm = TRUE), 
-             max = max(v, na.rm = TRUE), 
-             q1 = quantile(v, 0.25, na.rm = TRUE),
              q3 = quantile(v, 0.75, na.rm = TRUE),
+             max = max(v, na.rm = TRUE), 
              row.names=NULL)
 }
