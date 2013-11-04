@@ -33,8 +33,6 @@ gain <- function(predictions, labels, percents = c(0.10, 0.20, 0.30, 0.40, 0.50)
 
 summary_predictions <- function(predictions,labels){ 
   
-  if(!is.numeric(labels)) labels <- as.numeric(labels)-1
-  
   res <- c(N = length(predictions),
            N.good = length(predictions[labels == 1]),
            N.bad = length(predictions[labels == 0]),
