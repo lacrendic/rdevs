@@ -1,6 +1,7 @@
 importFrom(plyr)
-importFrom(scales)
 importFrom(ggplot2)
+importFrom(scales)
+importFrom(ROCR)
 importFrom(xlsx)
 importFrom(rjson)
 importFrom(zoo)
@@ -9,6 +10,8 @@ export(
 	writetable, readtable, freqtable, df_summary, summary_df,
 	str_capitalize, str_clean, str_first_upper, str_is_email, str_pattern, str_left, str_right,
 	plot_bar, plot_density, plot_hist, plot_pareto, plot_pie, plot_dist,
+	plot_roc, plot_gain,
 	plot_df_dist, plot_calendar_hm,
-	pred_ranking,
-	truncate, df_to_json)
+	aucroc, divergence, gain, gini, ks, oddstable, pred_ranking, summary_predictions,
+	truncate, df_to_json
+)
