@@ -61,11 +61,11 @@ plot_hist <- function(variable, count = TRUE, color = "#1E90FF"){
 }
 
 
-plot_density <- function(variable, color = "blue", alpha = 0.6, ...){
-  require(ggplot2)
-  ggplot(data.frame(variable),aes(variable)) + geom_density(fill=color, alpha = alpha) +
-    xlab(NULL) + ylab(NULL) 
-}
+#plot_density <- function(variable, color = "blue", alpha = 0.6, ...){
+#  require(ggplot2)
+#  ggplot(data.frame(variable),aes(variable)) + geom_density(fill=color, alpha = alpha) +
+#    xlab(NULL) + ylab(NULL) 
+#}
 
 
 plot_pareto <- function(variable, prop = TRUE, ...){

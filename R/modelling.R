@@ -86,7 +86,7 @@ pred_ranking <- function(df, response = .(desercion_1)){
   library(ROCR)
   response_var <- df[[names(response)]]
   df2 <- df[,-which(names(df)==names(response))]
-  df2 <- df2[,laply(df2, function(v){ if(length(unique(v))==1){ FALSE } else { TRUE } })]
+  df2 <- df2[,laply(df2, function(v){ if(length(unique(na.omit(v)))==1){ FALSE } else { TRUE } })]
   
   res <- ldply(names(df2), function(namevar){
     message(namevar)
