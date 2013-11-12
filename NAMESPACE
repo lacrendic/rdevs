@@ -14,5 +14,6 @@ export(
 	plot_roc, plot_gain,
 	plot_df_dist, plot_calendar_hm,
 	aucroc, divergence, gain, gini, ks, oddstable, pred_ranking, summary_predictions,
+	supervised_clust, conf_matrix,
 	truncate, df_to_json
 )
