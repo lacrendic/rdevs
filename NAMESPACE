@@ -4,6 +4,7 @@ importFrom(scales)
 importFrom(ROCR)
 importFrom(xlsx)
 importFrom(rjson)
+importFrom(party)
 importFrom(zoo)
 
 export(

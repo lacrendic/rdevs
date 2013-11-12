@@ -79,7 +79,6 @@ oddstable <- function(predictions, labels, min = min(predictions), max = max(pre
   
   #oddstable
   list(oddstable = t2, cuts = cuts)
-  
 }
 
 
@@ -102,9 +101,71 @@ pred_ranking <- function(df, response = .(desercion_1)){
     
     auc <- attr(performance(pred,"auc"),"y.values")[[1]]
     ks <- max(abs(attr(perf,'y.values')[[1]]-attr(perf,'x.values')[[1]]))
-    
-    return(data.frame(Varible = namevar, AUCROC = auc, KS = ks, NA.prop = 1-nrow(daux_naomit)/nrow(daux), log = ""))  
+    return(data.frame(Variable = namevar, AUCROC = auc, KS = ks, NA.prop = 1-nrow(daux_naomit)/nrow(daux), log = ""))  
   }, .progress="text")
   res <- res[order(res$AUCROC, decreasing=TRUE),]
   res
 }
+
+
+supervised_clust <- function(response, variable, name.output, ...){
+  
+  library(party)
+  library(plyr)
+  
+  if(!is.numeric(variable)) variable <- as.factor(variable)
+  
+  daux <- data.frame(response = response, variable = variable)
+  
+  tree <- ctree(factor(response)~variable, data = daux, ...)  
+  plot(tree)
+  
+  daux$newvar <- factor(tree@where)
+  levels(daux$newvar) <- paste0("CLUS_", 1:length(unique(tree@where)))
+  
+  d <- as.data.frame.matrix(table(daux$variable,daux$newvar))
+  
+  if(is.numeric(variable)){
+    res <- llply(d, function(x) c(min = min(as.numeric(rownames(d)[x!=0])),
+                                  max = max(as.numeric(rownames(d)[x!=0]))))
+    
+    cod <- ldply(res, function(x) data.frame(x[[1]],x[[2]]))
+    names(cod) <- c("Cluster", "Minima", "Maxima")
+    
+  } else{
+    res <- llply(d, function(x) rownames(d)[x!=0])
+    cod <- ldply(d, function(x) data.frame(rownames(d)[x!=0]))
+    names(cod) <- c("Cluster", "Element")
+    
+  }
+  
+  # RData
+  if(!missing(name.output)) save(daux$newvar, cod, res, file=name.output)
+  
+  list(newvar = daux$newvar, cod = cod, cod2 = res)
+}
+
+conf_matrix <- function(true.values, predictions) {
+  t <- table( true = true.values, prediction = predictions)
+  # http://www2.cs.uregina.ca/~dbd/cs831/notes/confusion_matrix/confusion_matrix.html
+  #                     Prediction
+  #                 NegPred   PosPred
+  # real NegOutcome
+  # real PosOutcome
+  AC <- sum(diag(t))/sum(t) #Accuracy (AC) is the he proportion of the total number of predictions that were correct.
+  TP <- t[2,2]/sum(t[2,])   #Recall or true positive rate (TP) is the proportion of positive cases that were correctly identified. (BB)
+  FP <- t[1,2]/sum(t[1,])   #False positive rate (FP) is the proportion of negatives cases that were incorrectly classified as positive
+  TN <- t[1,1]/sum(t[1,])   #True negative rate (TN) is defined as the proportion of negatives cases that were classified correctly (MM)
+  FN <- t[2,1]/sum(t[2,])   #False negative rate (FN) is the proportion of positives cases that were incorrectly classified as negative
+  P <- t[2,2]/sum(t[,2])    #Precision (P) is the proportion of the predicted positive cases that were correct
+  return(list(confusion.matrix = t,
+              Accuracy = AC,
+              "True Positive rate (BB)" = TP,
+              "False Positive rate" = FP,
+              "True Negative rate (MM)" = TN,
+              "False Negative rate" = FN,
+              Precision = P))
+}
+
+
+
