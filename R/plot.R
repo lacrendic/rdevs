@@ -44,21 +44,21 @@ plot_pie <- function(variable){
 }
 
 
-plot_hist <- function(variable, count = TRUE, color = "#1E90FF"){
-  require(ggplot2)
-  variable <- na.omit(variable)
-  p <- qplot(variable, geom = "blank")
-  if(count){
-    p <- p + geom_histogram(aes(y = ..count..), fill = color, colour = "black",
-                            binwidth=diff(range(variable))/30) + ylab("Count")
-  } else {
-    p <- p + geom_histogram(aes(y = ..density..), fill = color, colour = "black",
-                            binwidth=diff(range(variable))/30) + ylab("Density") 
-  }
-  p <- p + ylab(NULL) + xlab(NULL)
-  
-  p
-}
+# plot_hist <- function(variable, count = TRUE, color = "#1E90FF"){
+#   require(ggplot2)
+#   variable <- na.omit(variable)
+#   p <- qplot(variable, geom = "blank")
+#   if(count){
+#     p <- p + geom_histogram(aes(y = ..count..), fill = color, colour = "black",
+#                             binwidth=diff(range(variable))/30) + ylab("Count")
+#   } else {
+#     p <- p + geom_histogram(aes(y = ..density..), fill = color, colour = "black",
+#                             binwidth=diff(range(variable))/30) + ylab("Density") 
+#   }
+#   p <- p + ylab(NULL) + xlab(NULL)
+#   
+#   p
+# }
 
 
 #plot_density <- function(variable, color = "blue", alpha = 0.6, ...){
@@ -83,7 +83,8 @@ plot_pareto <- function(variable, prop = TRUE, ...){
   
 }
 
-plot_dist <- function(variable, indicator,  split){
+
+plot_dist <- function(variable, indicator,  facet){
   require(ggplot2)
   require(scales)
   if(!is.numeric(variable) & any(is.na(variable))){
@@ -103,7 +104,7 @@ plot_dist <- function(variable, indicator,  split){
   
   df <- data.frame(variable = variable)
   if(!missing(indicator)) df <- cbind(df, indicator = indicator)
-  if(!missing(split)) df <- cbind(df, split = split)
+  if(!missing(facet)) df <- cbind(df, facet = facet)
   
   p <- ggplot(df) +  geom_bar(aes(variable, ..count../sum(..count..)))
   
@@ -117,8 +118,8 @@ plot_dist <- function(variable, indicator,  split){
     }
   }
   
-  if(!missing(split)){
-    p <- p + facet_grid(. ~ split, scales="free")
+  if(!missing(facet)){
+    p <- p + facet_grid(. ~ facet, scales="free")
   }
   
   p <- p + xlab(NULL) + ylab(NULL) + scale_y_continuous(labels = percent)
