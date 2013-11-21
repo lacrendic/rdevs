@@ -12,15 +12,17 @@ freqtable <- function(variable, variable2, sort.by.count = FALSE, pretty = FALSE
     
     table <- data.frame(variable = names(freq),
                         freq = as.vector(freq),
-                        cumfreq = cumsum(freq),
+                        cumfreq = NA,
                         relfreq = as.vector(prop.table(freq)),
+                        cumrelfreq = NA,
                         row.names = NULL,
                         stringsAsFactors = FALSE)
     
     if(sort.by.count){
       table <- table[order(table$freq, decreasing=T),]
-    } 
+    }
     
+    table$cumfreq <- cumsum(table$freq)
     table$cumrelfreq <- cumsum(table$relfreq)
     
     if(add.total){
@@ -28,7 +30,6 @@ freqtable <- function(variable, variable2, sort.by.count = FALSE, pretty = FALSE
       names(d) <- names(table)
       table <- rbind(table, d)  
     }
-    
     
     if(pretty){
       require(scales)
