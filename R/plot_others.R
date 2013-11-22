@@ -53,10 +53,7 @@ plot_calendar_hm <- function(dates, values){
   return(p)
 }
 
-
-
-
-plot_df_dist <- function(df, facet_formula, responses, file = "output_plot_dist_by_var.pdf", ...){
+plot_complete_df <- function(df, facet_formula, responses, file = "output_plot_dist_by_var.pdf", ...){
   require(ggplot2)
   require(scales)
   
