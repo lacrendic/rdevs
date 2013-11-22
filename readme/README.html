@@ -217,17 +217,22 @@ writetable(mtcars, &quot;file.json&quot;)
 
 <p>The function <code>readtable</code> require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the <code>rbind.fill</code> function in the <code>plyr</code> package.</p>
 
-<pre><code class="r">table &lt;- readtable(c(&quot;excel_file.xlsx&quot;, &quot;txt_file.txt&quot;))
-table &lt;- readtable(&quot;json_file.json&quot;)
+<pre><code class="r">table1 &lt;- readtable(c(&quot;excel_file.xlsx&quot;, &quot;txt_file.txt&quot;))
+table1
 </code></pre>
 
-<pre><code>## Warning: NAs introduced by coercion
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width   Species  from
+## 1          5.1         3.5          1.4         0.2    setosa excel
+## 2          4.9         3.0          1.4         0.2    setosa excel
+## 3          4.7         3.2          1.3         0.2    setosa excel
+## 4          6.5         3.0          5.2         2.0 virginica  text
+## 5          6.2         3.4          5.4         2.3 virginica  text
+## 6          5.9         3.0          5.1         1.8 virginica  text
 </code></pre>
 
-<pre><code>## Warning: NAs introduced by coercion
-</code></pre>
-
-<pre><code class="r">table
+<pre><code class="r">
+table2 &lt;- readtable(&quot;json_file.json&quot;)
+table2
 </code></pre>
 
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species other_from

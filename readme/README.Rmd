@@ -54,9 +54,11 @@ The function `readtable` require the names of files to read. You can read simoul
 
 
 ```{r message=FALSE, }
-table <- readtable(c("excel_file.xlsx", "txt_file.txt"))
-table <- readtable("json_file.json")
-table
+table1 <- readtable(c("excel_file.xlsx", "txt_file.txt"))
+table1
+
+table2 <- readtable("json_file.json")
+table2
 ```
 
 
