@@ -95,7 +95,7 @@ plot_dist(credit$age) + ggtitle("A title") + xlab("I'm here, in the xlab")
 
 You can also split the plot according a new variable.
 ```{r message=FALSE, fig.height=5, fig.width=5}
-plot_dist(credit$age, split=credit$marital_status)
+plot_dist(credit$age, facet=credit$marital_status)
 ```
 
 Or even show a bivariate (1 or 0) response variable:
@@ -103,7 +103,7 @@ Or even show a bivariate (1 or 0) response variable:
 plot_dist(credit$marital_status, indicator=credit$bad)
 
 credit <- subset(credit, sex %in% c("F", "M"))
-plot_dist(credit$age, indicator=credit$bad, split=credit$sex)
+plot_dist(credit$age, indicator=credit$bad, facet=credit$sex)
 ```
 
 #### Other functions

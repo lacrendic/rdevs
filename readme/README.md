@@ -58,6 +58,17 @@ The function `readtable` require the names of files to read. You can read simoul
 ```r
 table <- readtable(files = c("excel_file.xlsx", "txt_file.txt"))
 table <- readtable(files = c("json_file.json"))
+```
+
+```
+## Warning: NAs introduced by coercion
+```
+
+```
+## Warning: NAs introduced by coercion
+```
+
+```r
 table
 ```
 
@@ -113,10 +124,10 @@ freqtable(credit$residence_type, sort.by.count = TRUE, pretty = TRUE)
 
 ```
 ##   category   freq cumfreq relfreq cumrelfreq
-## 4        P 37,013  49,694   74.5%      74.5%
-## 1        A  6,326   6,326   12.7%      87.2%
-## 2        C  4,323  10,649    8.7%      95.9%
-## 3        O  2,032  12,681    4.1%     100.0%
+## 4        P 37,013  37,013   74.5%      74.5%
+## 1        A  6,326  43,339   12.7%      87.2%
+## 2        C  4,323  47,662    8.7%      95.9%
+## 3        O  2,032  49,694    4.1%     100.0%
 ## 5    Total 49,694      NA  100.0%        NA%
 ```
 
@@ -177,7 +188,7 @@ plot_dist(credit$age) + ggtitle("A title") + xlab("I'm here, in the xlab")
 You can also split the plot according a new variable.
 
 ```r
-plot_dist(credit$age, split = credit$marital_status)
+plot_dist(credit$age, facet = credit$marital_status)
 ```
 
 ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10.png) 
@@ -194,7 +205,7 @@ plot_dist(credit$marital_status, indicator = credit$bad)
 ```r
 
 credit <- subset(credit, sex %in% c("F", "M"))
-plot_dist(credit$age, indicator = credit$bad, split = credit$sex)
+plot_dist(credit$age, indicator = credit$bad, facet = credit$sex)
 ```
 
 ![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-112.png) 
