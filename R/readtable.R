@@ -25,7 +25,7 @@ readtable <- function(files, ...){
       })
       
       for(c in seq(ncol(d))){
-        if(!all(is.na(as.numeric(d[,c])))){
+        if(suppressWarnings(!all(is.na(as.numeric(d[,c]))))){
           d[,c] <- as.numeric(d[,c])
         } 
       }

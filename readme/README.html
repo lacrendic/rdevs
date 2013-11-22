@@ -217,8 +217,8 @@ writetable(mtcars, &quot;file.json&quot;)
 
 <p>The function <code>readtable</code> require the names of files to read. You can read simoultaneus files. This function not necessary require all tables with the same number columns because use the <code>rbind.fill</code> function in the <code>plyr</code> package.</p>
 
-<pre><code class="r">table &lt;- readtable(files = c(&quot;excel_file.xlsx&quot;, &quot;txt_file.txt&quot;))
-table &lt;- readtable(files = c(&quot;json_file.json&quot;))
+<pre><code class="r">table &lt;- readtable(c(&quot;excel_file.xlsx&quot;, &quot;txt_file.txt&quot;))
+table &lt;- readtable(&quot;json_file.json&quot;)
 </code></pre>
 
 <pre><code>## Warning: NAs introduced by coercion
