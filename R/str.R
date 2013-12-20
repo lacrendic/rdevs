@@ -1,10 +1,10 @@
-str_left <- function(strings, nchars){
-  s <- substring(strings, 0, nchars)
+str_left <- function(string, nchars){
+  s <- substring(string, 0, nchars)
   return(s)
 }
 
-str_right <- function(strings, nchars){
-  s <- substring(strings, nchar(strings) - nchars + 1, nchar(strings))
+str_right <- function(string, nchars){
+  s <- substring(string, nchar(string) - nchars + 1, nchar(string))
   return(s)
 }
 
@@ -32,7 +32,7 @@ str_clean <- function(string,
   require(stringr)
   if(remove.punct)     string <- gsub("[[:punct:]]", "", string)
   if(remove.digit)     string <- gsub("[[:digit:]]", "", string)
-  if(remove.accent)    string <- iconv(string, from="UTF-8", to="ASCII//TRANSLIT")  # https://stat.ethz.ch/pipermail/r-help/2010-September/251833.html
+  if(remove.accent)    string <- str_remove_tilde(string)
   if(to.lower)         string <- tolower(string)
   if(trim)             string <- str_trim(string)
   
@@ -43,3 +43,11 @@ str_is_email <- function(string){
   email_pattern <- "^([a-zA-Z0-9]+[a-zA-Z0-9._%-]*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,4})$"
   grepl(email_pattern, string)
 }
+
+str_remove_tilde <- function(string){
+  string <- gsub("Ä|Á", "A", gsub("Ë|É", "E", gsub("Ï|Ï", "I", gsub("Ö|Ó", "O", gsub("Ü|Ú", "U", string)))))
+  string <- gsub("ä|á", "a", gsub("ë|é", "e", gsub("ï|í", "i", gsub("ö|ó", "o", gsub("ü|ú", "u", string)))))
+  string <- gsub("Ñ", "N", gsub("ñ", "n", string))
+  string
+}
+
