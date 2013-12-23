@@ -1,6 +1,6 @@
 df_summary <- function(dataframe){
   
-  numcols <- laply(d, is.numeric)
+  numcols <- laply(dataframe, is.numeric)
   
   d1 <-  ldply(seq(ncol(dataframe)), function(ncol){
     names(dataframe)[ncol]
