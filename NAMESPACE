@@ -6,6 +6,8 @@ importFrom(rjson)
 #importFrom(xlsx)
 importFrom(party)
 importFrom(zoo)
+importFrom(e1071)
+importFrom(stringr)
 
 export(
 	writetable, readtable, freqtable, df_summary, summary_numvector,
@@ -16,6 +18,7 @@ export(
 	plot_roc, plot_gain,
 	plot_complete_df, plot_calendar_hm,
 	aucroc, divergence, gain, gini, ks, oddstable, pred_ranking, summary_predictions,
+  mod_fit,
 	supervised_clust, conf_matrix,
 	truncate, df_to_json
 )

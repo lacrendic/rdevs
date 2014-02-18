@@ -7,3 +7,4 @@ Author: Joshua Kunst <jbkunst@gmail.com>
 Maintainer: Joshua Kunst <jbkunst@gmail.com>
 Description: More about what it does (maybe more than one line)
 License: GPL (>= 3)
+Imports: plyr, ggplot2, scales, ROCR, rjson, party, zoo, e1071, stringr
