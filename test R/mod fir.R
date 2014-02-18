@@ -1,3 +1,4 @@
+library(plyr)
 data(iris)
 data(credit)
 
@@ -7,9 +8,9 @@ data(credit)
 # data$Species <- ifelse(data$Species=="virginica", 0, 1)
 # head(data)
 
-data <- head(credit, 10000)
+data <- head(credit, 20000)
 data <- data[,laply(data, .fun = function(x){ length(unique(x)) != 1})]
-data <- chart
+
 
 formula1 <- bad ~ .
 formula2 <- bad ~ sex + age + personal_net_income

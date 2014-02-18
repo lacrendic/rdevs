@@ -1,5 +1,6 @@
 mod_fit <- function(formula, data, model.name = c("logistic", "svm", "ctree", "ada"), subset){
   library(plyr)
+  char2factor <- function(df) { data.frame(lapply(df, function (v) { if (is.character(v)) factor(v) else v })) }
   if(!model.name %in% c("logistic", "svm", "ctree", "ada")){ stop("model.name not valid") }
   if(!is.formula(formula)) stop("The parameter formula is not a formula")
   
@@ -33,8 +34,8 @@ mod_fit <- function(formula, data, model.name = c("logistic", "svm", "ctree", "a
     }
   } else if(model.name == "ctree"){
     library(party)
-    model <- ctree(formula, data = data)
-    preds <- laply(predict(model, newdata=data, type="prob"), function(x){x[2]})
+    model <- ctree(formula, data = char2factor(data))
+    preds <- laply(predict(model, newdata=char2factor(data), type="prob"), function(x){x[2]})
     if(!missing(subset)){
       preds_val <- laply(predict(model, newdata=data_val, type="prob"), function(x){x[2]})
     }
