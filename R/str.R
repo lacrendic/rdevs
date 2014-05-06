@@ -45,7 +45,7 @@ str_is_email <- function(string){
 }
 
 str_remove_tilde <- function(string){
-  string <- gsub("Ä|Á", "A", gsub("Ë|É", "E", gsub("Ï|Ï", "I", gsub("Ö|Ó", "O", gsub("Ü|Ú", "U", string)))))
+  string <- gsub("Ä|Á", "A", gsub("Ë|É", "E", gsub("Ï|Í", "I", gsub("Ö|Ó", "O", gsub("Ü|Ú", "U", string)))))
   string <- gsub("ä|á", "a", gsub("ë|é", "e", gsub("ï|í", "i", gsub("ö|ó", "o", gsub("ü|ú", "u", string)))))
   string <- gsub("Ñ", "N", gsub("ñ", "n", string))
   string
