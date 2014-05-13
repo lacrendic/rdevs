@@ -8,6 +8,7 @@ importFrom(party)
 importFrom(zoo)
 importFrom(e1071)
 importFrom(stringr)
+importFrom(RRF)
 
 export(
 	writetable, readtable, freqtable, df_summary, summary_numvector,
@@ -17,8 +18,9 @@ export(
 	plot_bar, plot_pareto, plot_pie, plot_dist, # plot_density, plot_hist,
 	plot_roc, plot_gain,
 	plot_complete_df, plot_calendar_hm,
-	aucroc, divergence, gain, gini, ks, oddstable, pred_ranking, summary_predictions,
-  mod_fit,
+	aucroc, divergence, gain, gini, ks, oddstable, pred_ranking, pred_ranking_rrf, summary_predictions,
+	mod_fit,
+	char2factor,
 	supervised_clust, conf_matrix,
 	truncate, df_to_json
 )

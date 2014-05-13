@@ -107,6 +107,27 @@ pred_ranking <- function(df, response = .(desercion_1)){
   res
 }
 
+char2factor <- function(df) {
+  data.frame(lapply(df, function (v) {
+    if (is.character(v)) factor(v)
+    else v
+  }))
+}
+
+pred_ranking_rrf <- function(data, response.name, pred.names){
+
+  library(RRF)
+
+  formula <- as.formula(paste(response.name, paste(pred.names, collapse="+"), sep= " ~ "))  
+  daux <- subset(data, select=c(response.name, pred.names))
+  daux <- char2factor(daux)
+  daux <- na.roughfix(daux)
+  daux[[response.name]] <- factor(daux[[response.name]])
+  rrf <- RRF(formula, data=daux, do.trace=TRUE)
+  imp <- data.frame(variable = rownames(RRF::importance(rrf)), mdg = as.numeric((RRF::importance(rrf))))
+  imp <- imp[order(imp$mdg, decreasing=TRUE),]
+  imp
+}
 
 supervised_clust <- function(response, variable, name.output, ...){
   
