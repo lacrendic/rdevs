@@ -114,7 +114,7 @@ char2factor <- function(df) {
   }))
 }
 
-pred_ranking_rrf <- function(data, response.name, pred.names){
+pred_ranking_rrf <- function(data, response.name, pred.names = setdiff(names(data), response.name), ...){
 
   library(RRF)
 
@@ -123,7 +123,7 @@ pred_ranking_rrf <- function(data, response.name, pred.names){
   daux <- char2factor(daux)
   daux <- na.roughfix(daux)
   daux[[response.name]] <- factor(daux[[response.name]])
-  rrf <- RRF(formula, data=daux, do.trace=TRUE)
+  rrf <- RRF(formula, data=daux, ...)
   imp <- data.frame(variable = rownames(RRF::importance(rrf)), mdg = as.numeric((RRF::importance(rrf))))
   imp <- imp[order(imp$mdg, decreasing=TRUE),]
   imp
