@@ -3,12 +3,11 @@ suppressPackageStartupMessages(importFrom(ggplot2))
 suppressPackageStartupMessages(importFrom(scales))
 suppressPackageStartupMessages(importFrom(ROCR))
 suppressPackageStartupMessages(importFrom(rjson))
-#importFrom(xlsx)
 suppressPackageStartupMessages(importFrom(party))
 suppressPackageStartupMessages(importFrom(zoo))
 suppressPackageStartupMessages(importFrom(e1071))
 suppressPackageStartupMessages(importFrom(stringr))
-suppressPackageStartupMessages()importFrom(RRF)
+suppressPackageStartupMessages(importFrom(RRF))
 
 export(
 	writetable, readtable, freqtable, df_summary, summary_numvector,
