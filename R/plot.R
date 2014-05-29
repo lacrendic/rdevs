@@ -44,29 +44,91 @@ plot_pie <- function(variable){
 }
 
 
-# plot_hist <- function(variable, count = TRUE, color = "#1E90FF"){
-#   require(ggplot2)
-#   variable <- na.omit(variable)
-#   p <- qplot(variable, geom = "blank")
-#   if(count){
-#     p <- p + geom_histogram(aes(y = ..count..), fill = color, colour = "black",
-#                             binwidth=diff(range(variable))/30) + ylab("Count")
-#   } else {
-#     p <- p + geom_histogram(aes(y = ..density..), fill = color, colour = "black",
-#                             binwidth=diff(range(variable))/30) + ylab("Density") 
-#   }
-#   p <- p + ylab(NULL) + xlab(NULL)
-#   
-#   p
-# }
-
-
-#plot_density <- function(variable, color = "blue", alpha = 0.6, ...){
-#  require(ggplot2)
-#  ggplot(data.frame(variable),aes(variable)) + geom_density(fill=color, alpha = alpha) +
-#    xlab(NULL) + ylab(NULL) 
-#}
-
+plot_dist_pres <- function(variable,
+                           indicator,
+                           coord.flip = FALSE,
+                           count.labels = FALSE,
+                           indicator.labels = FALSE,
+                           sort.by = c("otra","variable", "indicator"),
+                           abline = FALSE,
+                           size.text = 4,
+                           size.text2 = 10,
+                           remove.axis.y = TRUE,
+                           bar.width= .6){
+  library(plyr)
+  library(dplyr)
+  library(ggplot2)
+  library(scales)
+  
+  n <- length(variable)
+  t <- data.frame(variable, indicator) %.%
+    group_by(variable) %.%
+    summarize(freq = n(), percent = freq/n, indicator.mean = mean(indicator)) %.%
+    mutate(freq.pretty = prettyNum(freq, big.mark="."),
+           indicator.mean.pretty = percent(indicator.mean))
+  if(sort.by[1] == "indicator"){
+    if(coord.flip)
+      t <- t %.% arrange(desc(-indicator.mean))
+    else
+      t <- t %.% arrange(desc(indicator.mean))
+  } else if (sort.by[1] == "variable") {
+    if(coord.flip)
+      t <- t %.% arrange(desc(-freq))
+    else
+      t <- t %.% arrange(desc(freq))
+  }
+  
+  t$variable <- factor(t$variable, levels=t$variable)
+  t$id <- seq(nrow(t))
+  
+  p <- ggplot(t) + 
+    geom_bar(aes(variable, percent), stat="identity", fill="gray80", width=bar.width) +
+    geom_line(aes(id, indicator.mean), colour = "darkred") +
+    geom_point(aes(id, indicator.mean), colour = "darkred") 
+  
+  if(coord.flip)
+    p <- p + coord_flip()
+  
+  if(count.labels)
+    if(coord.flip)
+      p <- p + geom_text(aes(variable, percent, label=freq.pretty),
+                         size = size.text, hjust = 1.2, colour = "white")
+  else
+    p <- p + geom_text(aes(variable, percent, label=freq.pretty),
+                       size = size.text, vjust= 1.5, colour = "white")
+  
+  if(indicator.labels)
+    if(coord.flip)
+      p <- p + geom_text(aes(variable, indicator.mean, label=indicator.mean.pretty),
+                         size = size.text, hjust = -1, colour = "darkred")
+  else
+    p <- p + geom_text(aes(variable, indicator.mean, label=indicator.mean.pretty),
+                       size = size.text, vjust = -.5, colour = "darkred")
+  
+  p <- p + ylim(0, max(c(t$percent, t$indicator.mean))*1.1)
+  p <- p +
+    theme(
+      text                = element_text(family="Open Sagns", size = 10),
+      title               = element_text(hjust=0),
+      axis.title.x        = element_text(hjust=.5),
+      axis.title.y        = element_text(hjust=.5),
+      axis.text           = element_text(size = size.text2),
+      panel.grid          = element_blank(),
+      panel.border        = element_blank(),
+      panel.background    = element_blank(),
+      legend.position     = "bottom",
+      legend.title        = element_blank()
+    )
+  if(remove.axis.y)
+    if(coord.flip)
+      p <- p + theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+  else 
+    p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+  else
+    p <- p + scale_y_continuous(labels = percent)
+  p <- p + xlab(NULL) + ylab(NULL)
+  p
+}
 
 plot_pareto <- function(variable, prop = TRUE, ...){
   require(ggplot2)
@@ -126,3 +188,18 @@ plot_dist <- function(variable, indicator,  facet){
   
   return(p)
 }
+
+# rm(credit)
+# data(credit)
+# variable <- credit$marital_status
+# indicator <- credit$bad
+#   plot_dist_pres(variable, indicator)
+#   plot_dist_pres(variable, indicator, remove.axis.y=FALSE)
+#   plot_dist_pres(variable, indicator, remove.axis.y=FALSE, size.text2=15)
+#   plot_dist_pres(variable, indicator, count.labels=TRUE)
+#  plot_dist_pres(variable, indicator, count.labels=TRUE, coord.flip=FALSE, size.text=5)
+#   plot_dist_pres(variable, indicator, indicator.labels=TRUE)
+#   plot_dist_pres(variable, indicator, indicator.labels=TRUE, coord.flip=TRUE)
+#   plot_dist_pres(variable, indicator, count.labels=TRUE, indicator.labels=TRUE)
+#   plot_dist_pres(variable, indicator, sort.by="variable")
+#   plot_dist_pres(variable, indicator, sort.by="indicator")
