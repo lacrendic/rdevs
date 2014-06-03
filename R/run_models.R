@@ -4,8 +4,8 @@ run_models <- function(training, testing,
                       indicator.class="T", listpar){
   library(caret)
   # data(credit)
-  credit$bad <- ifelse(credit$bad, "T", "F")
-  run_models(credit, credit, response.name="bad")
+  # credit$bad <- ifelse(credit$bad, "T", "F")
+  # run_models(credit, credit, response.name="bad")
  
   listparo <- list(rf = list(method = "rf", par = data.frame(mtry=3)),
                    rl = list(method = "plr", par = data.frame(cp="aic", lambda=1e-4)),
