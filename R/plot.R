@@ -123,7 +123,7 @@ plot_dist_pres <- function(variable,
   else
     p <- p + scale_y_continuous(labels = percent)
   p <- p + xlab(NULL) + ylab(NULL)
-  list(p,t)
+  p
 }
 
 plot_pareto <- function(variable, prop = TRUE, ...){
