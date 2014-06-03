@@ -20,8 +20,8 @@ run_models <- function(training, testing,
                    gbm = list(method = "gbm", par =data.frame(n.trees=20,interaction.depth=20 , shrinkage=0.5)))
   
   if(!missing(listpar)){
-    for(n in names(listar)){
-      listparo[[n]] <- listap[[n]]
+    for(n in names(listpar)){
+      listparo[[n]] <- listpar[[n]]
     }
   }
   
