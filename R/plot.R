@@ -60,12 +60,8 @@ plot_dist_pres <- function(variable,
   library(ggplot2)
   library(scales)
   
-  n <- length(variable)
-  t <- data.frame(variable, indicator) %.%
-    group_by(variable) %.%
-    summarize(freq = n(), percent = freq/n, indicator.mean = mean(indicator)) %.%
-    mutate(freq.pretty = prettyNum(freq, big.mark="."),
-           indicator.mean.pretty = percent(indicator.mean))
+  t <- table_bivariate(variable, indicator)
+  
   if(sort.by[1] == "indicator"){
     if(coord.flip)
       t <- t %.% arrange(desc(-indicator.mean))

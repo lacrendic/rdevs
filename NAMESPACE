@@ -19,6 +19,7 @@ export(
   plot_dist_pres, 
   colors_hc, theme_hc,
   run_models,
+  table_bivariate,
 	plot_roc, plot_gain,
 	plot_complete_df, plot_calendar_hm,
 	aucroc, divergence, gain, gini, ks, oddstable, pred_ranking, pred_ranking_rrf, summary_predictions,
