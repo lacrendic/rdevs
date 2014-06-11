@@ -104,7 +104,7 @@ plot_dist_pres <- function(variable,
   p <- p + ylim(0, max(c(t$percent, t$indicator.mean))*1.1)
   p <- p +
     theme(
-      text                = element_text(family="Open Sagns", size = 10),
+      text                = element_text(size = 10),
       title               = element_text(hjust=0),
       axis.title.x        = element_text(hjust=.5),
       axis.title.y        = element_text(hjust=.5),
@@ -184,18 +184,3 @@ plot_dist <- function(variable, indicator,  facet){
   
   return(p)
 }
-
-# rm(credit)
-# data(credit)
-# variable <- credit$marital_status
-# indicator <- credit$bad
-#   plot_dist_pres(variable, indicator)
-#   plot_dist_pres(variable, indicator, remove.axis.y=FALSE)
-#   plot_dist_pres(variable, indicator, remove.axis.y=FALSE, size.text2=15)
-#   plot_dist_pres(variable, indicator, count.labels=TRUE)
-#  plot_dist_pres(variable, indicator, count.labels=TRUE, coord.flip=FALSE, size.text=5)
-#   plot_dist_pres(variable, indicator, indicator.labels=TRUE)
-#   plot_dist_pres(variable, indicator, indicator.labels=TRUE, coord.flip=TRUE)
-#   plot_dist_pres(variable, indicator, count.labels=TRUE, indicator.labels=TRUE)
-#   plot_dist_pres(variable, indicator, sort.by="variable")
-#   plot_dist_pres(variable, indicator, sort.by="indicator")

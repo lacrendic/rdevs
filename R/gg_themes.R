@@ -19,3 +19,21 @@ colors_hc <- function(){
   c("#7CB5EC", "#313131", "#F7A35C", "#90EE7E", "#7798BF", "#AAEEEE",
                "#FF0066", "#EEAAEE", "#55BF3B", "#DF5353", "#7798BF", "#AAEEEE")
 }
+
+
+theme_null <- function(){
+
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        legend.position="none",
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank()
+        )
+}
