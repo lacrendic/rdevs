@@ -11,7 +11,7 @@ aucroc <- function(predictions, labels){
   pred <- prediction(predictions,labels)
   perf <- performance(pred,"tpr","fpr")
   aucroc <- attr(performance(pred,"auc"),"y.values")[[1]]
-  return(auroc)
+  return(aucroc)
 }
 
 gini <- function(predictions, labels){
