@@ -15,7 +15,8 @@ aucroc <- function(predictions, labels){
 }
 
 gini <- function(predictions, labels){
-  return(c(gini = 2*as.numeric(aucroc(predictions, labels)) - 1))
+  gini <- 2*as.numeric(aucroc(predictions, labels)) - 1
+  return(gini)
 }
 
 divergence <- function(predictions, labels){
