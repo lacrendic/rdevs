@@ -31,17 +31,17 @@ gain <- function(predictions, labels, percents = c(0.10, 0.20, 0.30, 0.40, 0.50)
   g
 }
 
-summary_predictions <- function(predictions,labels){ 
-  
-  res <- c(N = length(predictions),
-           N.good = length(predictions[labels == 1]),
-           N.bad = length(predictions[labels == 0]),
-           mean = length(predictions[labels == 0])/length(predictions),
-           ks(predictions,labels),
-           aucroc(predictions,labels),
-           gini(predictions,labels),
-           divergence(predictions,labels),
-           gain = gain(predictions,labels))
+summary_predictions <- function(predictions, labels){ 
+  # 1 good, 0 bad
+  res <- c(Size = length(predictions),
+           Goods = length(predictions[labels == 1]),
+           Bads = length(predictions[labels == 0]),
+           BadRate = 1 - mean(labels),
+           KS = ks(predictions,labels),
+           AUCROC = aucroc(predictions,labels),
+           Gini = gini(predictions,labels),
+           Divergence = divergence(predictions,labels),
+           Gain = gain(predictions,labels))
   res <- data.frame(t(res))
   names(res) <- gsub("\\.", "", names(res))
   res
