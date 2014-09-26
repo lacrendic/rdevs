@@ -3,7 +3,7 @@ ks <- function(predictions, labels){
   pred <- prediction(predictions,labels)
   perf <- performance(pred,"tpr","fpr")
   ks <- max(abs(attr(perf,'y.values')[[1]]-attr(perf,'x.values')[[1]]))
-  return(c(ks = as.numeric(ks)))
+  return(ks)
 }
 
 aucroc <- function(predictions, labels){
@@ -11,7 +11,7 @@ aucroc <- function(predictions, labels){
   pred <- prediction(predictions,labels)
   perf <- performance(pred,"tpr","fpr")
   aucroc <- attr(performance(pred,"auc"),"y.values")[[1]]
-  return(c(aucroc = aucroc))
+  return(auroc)
 }
 
 gini <- function(predictions, labels){
@@ -21,7 +21,8 @@ gini <- function(predictions, labels){
 divergence <- function(predictions, labels){
   s.good <- predictions[labels == 1]
   s.bad <- predictions[labels == 0]
-  return(c(divergence = (mean(s.good) - mean(s.bad))^2/(var(s.good) + var(s.bad))*2))
+  divergence <- (mean(s.good) - mean(s.bad))^2/(var(s.good) + var(s.bad))*2
+  return(divergence)
 }
 
 gain <- function(predictions, labels, percents = c(0.10, 0.20, 0.30, 0.40, 0.50)){
