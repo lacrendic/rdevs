@@ -1,4 +1,0 @@
-Sepal.Length	Sepal.Width	Petal.Length	Petal.Width	Species	from
-6.5	3	5.2	2	virginica	text
-6.2	3.4	5.4	2.3	virginica	text
-5.9	3	5.1	1.8	virginica	text

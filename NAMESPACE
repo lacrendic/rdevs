@@ -1,14 +1,1 @@
-importFrom(plyr)
-importFrom(ggplot2)
-importFrom(scales)
-importFrom(ROCR)
-importFrom(rjson)
-#importFrom(xlsx)
-importFrom(party)
-importFrom(zoo)
-importFrom(e1071)
-importFrom(stringr)
-importFrom(RRF)
-
 exportPattern("^[[:alpha:]]+")
-

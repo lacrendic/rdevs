@@ -1,9 +1,10 @@
-\name{shoRtcut-package}
-\alias{shoRtcut-package}
-\alias{shoRtcut}
+\name{reuse-package}
+\alias{reuse-package}
+\alias{reuse}
 \docType{package}
 \title{
-A R package to make the life with R even more easy.
+What the package does (short line)
+~~ package title ~~
 }
 \description{
 More about what it does (maybe more than one line)
@@ -11,10 +12,10 @@ More about what it does (maybe more than one line)
 }
 \details{
 \tabular{ll}{
-Package: \tab shoRcut\cr
+Package: \tab reuse\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
-Date: \tab 2013-07-03\cr
+Date: \tab 2014-10-02\cr
 License: \tab What license is it under?\cr
 }
 ~~ An overview of how to use the package, including the most important functions ~~
@@ -28,7 +29,8 @@ Maintainer: Who to complain to <yourfault@somewhere.net>
 \references{
 ~~ Literature or other references for background information ~~
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
+~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation ~~
+~~ directory ~~
 \keyword{ package }
 \seealso{
 ~~ Optional links to other man pages, e.g. ~~
