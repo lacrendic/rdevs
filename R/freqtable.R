@@ -1,4 +1,4 @@
-freqtable <- function(x, sort.by.freq = TRUE, add.total = FALSE){
+freqtable <- function(x, sort.by.freq = FALSE, add.total = FALSE){
   library(plyr)
   library(dplyr)
   
