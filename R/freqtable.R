@@ -23,4 +23,5 @@ freqtable <- function(x, sort.by.freq = FALSE, add.total = FALSE){
   }
   
   return(as.data.frame(freqt))
+
 }
