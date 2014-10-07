@@ -49,6 +49,7 @@ theme_pallet <- function(name = "default"){
   palettes[["gray"]] <- c("#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#AAEEEE", "#FF0066", 
                           "#EEAAEE", "#55BF3B", "#DF5353", "#7798BF", "#AAEEEE")
   
+  # Others in web
   # http://www.mulinblog.com/a-color-palette-optimized-for-data-visualization/
   palettes[["smtn"]] <- c("#4D4D4D", "#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0",
                           "#B2912F", "#B276B2", "#DECF3F", "#F15854")
