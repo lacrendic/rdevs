@@ -34,11 +34,11 @@ writetable <- function(data, name = "data.txt",  row.names = F, ...){
     
   } else if(ext %in% c("xlsx","xls")){
     
-    require(xlsx)
-    wb <- createWorkbook()
-    style1 <- CellStyle(wb) + Font(wb, isBold=TRUE) + Border()
-    addDataFrame(data, createSheet(wb), colnamesStyle=style1, row.names=row.names)
-    saveWorkbook(wb, name)
+    suppressPackageStartupMessages(library(XLConnect))
+    wb <- loadWorkbook(name, create = TRUE)
+    createSheet(wb, name = 'sheet')
+    writeWorksheet(wb, data, sheet = 'sheet')
+    saveWorkbook(wb)
     
   } else if(ext == "json"){
     
