@@ -1,5 +1,7 @@
 readtable <- function(files, ...){
   require(plyr)
+  ori <- getOption("stringsAsFactors")
+  options(stringsAsFactors = FALSE)
   # 20120314: Use of the function ldply to load more than 1 file
   # 20130409: Support pipe separated values
   # 20130720: Support json
@@ -58,9 +60,12 @@ readtable <- function(files, ...){
       
       require(xlsx)
       return(read.xlsx(name, sheetIndex=1, ...))
-      
-	  }
+    }
+    
   }
   # This function not necessary require all data with the same structure
-  ldply(files, function(f) read.table.aux(f, ...))
+  response <- ldply(files, function(f) read.table.aux(f, ...))
+  options(stringsAsFactors = ori)
+  
+  return(response)
 }
