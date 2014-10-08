@@ -22,3 +22,9 @@ table_bivariate <- function(variable, indicator){
            indicator.mean.pretty = percent(indicator.mean))
   t
 }
+
+get_breaks <- function(x, nbreaks = 10, min = 0 , max = 1000){
+  brks <- quantile(x, probs = seq(nbreaks-1)/nbreaks)
+  brks <- c("0%"=min, brks, "100%"=max)
+  brks
+}
