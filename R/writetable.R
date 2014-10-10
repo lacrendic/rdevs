@@ -60,3 +60,22 @@ df_to_json <- function(df){
   
   jss
 }
+
+write.list.tables.xlsx <- function(list.tables, name){
+  
+  library(XLConnect)
+
+  if(is.null(names(list.tables))){
+    names(list.tables) <- paste0("Sheet", seq(length(list.tables)))
+  }
+  
+  wb <- loadWorkbook(name, create = TRUE)
+  
+  for(table.name in names(list.tables)){
+    createSheet(wb, name = table.name)
+    writeWorksheet(wb, list.tables[[table.name]], sheet = table.name)
+  }
+  
+  saveWorkbook(wb)
+  
+}

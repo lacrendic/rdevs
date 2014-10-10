@@ -1,3 +1,15 @@
+save.list.plots.pdf <- function(list.plots, name, ...){
+  
+  library(plyr)
+  
+  pdf(file = name, ...)
+  
+  l_ply(list.plots, print)
+  
+  dev.off()
+  
+}
+
 plot_bar <- function(variable, show.values = TRUE, sort.by.count = TRUE, color = "darkred", transpose = FALSE){
   require(ggplot2)
   require(plyr)
@@ -145,6 +157,7 @@ plot_pareto <- function(variable, prop = TRUE, ...){
 plot_dist <- function(variable, indicator,  facet){
   require(ggplot2)
   require(scales)
+  
   if(!is.numeric(variable) & any(is.na(variable))){
     if(is.factor(variable)){
       lvls <- c(levels(variable), "NA")
@@ -155,6 +168,7 @@ plot_dist <- function(variable, indicator,  facet){
       variable <- ifelse(is.na(variable), "NA", variable)  
     }
   }
+  
   if(is.numeric(variable) & length(unique(variable))<=10){
     variable <- as.character(variable)
     variable <- ifelse(is.na(variable), "NA", variable)
