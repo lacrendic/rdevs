@@ -182,7 +182,7 @@ plot_dist <- function(variable, indicator,  facet){
   
   if(!missing(indicator)){
     if(is.numeric(variable)){
-      p <- p + stat_smooth(aes(x=variable,y=indicator), color ="darkred", se=FALSE)
+      p <- p + stat_smooth(aes(x=variable,y=indicator), color ="darkred",method="gam", se=FALSE)
     } else{
       p <- p +
         stat_summary(aes(x=variable,y=indicator), fun.y=mean, colour="red", geom="point") +
