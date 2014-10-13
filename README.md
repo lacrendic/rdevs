@@ -1,16 +1,16 @@
 
 
-# Reuse
+# rdevs
 A R package for make simpler the daily common tasks.
 
 ## Installation
-You can install `reuse` from `github` using the `devtools` package.
+You can install `rdevs` from `github` using the `devtools` package.
 
 
 ```r
 if (!require("devtools"))
   install.packages("devtools")
-devtools::install_github("jbkunst/reuse")
+devtools::install_github("mhramire/rdevs")
 ```
 
 ## Functions for strings

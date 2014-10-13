@@ -14,16 +14,16 @@ writeLines(d, "../README.md")
 rm(list=ls())
 ```
 
-# Reuse
+# rdevs
 A R package for make simpler the daily common tasks.
 
 ## Installation
-You can install `reuse` from `github` using the `devtools` package.
+You can install `rdevs` from `github` using the `devtools` package.
 
 ```{r, message=FALSE}
 if (!require("devtools"))
   install.packages("devtools")
-devtools::install_github("jbkunst/reuse")
+devtools::install_github("mhramire/rdevs")
 ```
 
 ## Functions for strings
@@ -31,7 +31,7 @@ devtools::install_github("jbkunst/reuse")
 This package assume: `1` for a good characteristic, `0` otherwise. 
 
 ```{r, message=FALSE, echo=FALSE}
-library(reuse)
+library(rdevs)
 ```
 
 ```{r, message=FALSE}
