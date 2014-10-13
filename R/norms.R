@@ -1,3 +1,3 @@
 norms <- function(n){
-  rnorm(n)
-}
+  rnorm(n);
+} 
