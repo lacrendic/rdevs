@@ -53,7 +53,7 @@ plot_calendar_hm <- function(dates, values){
   return(p)
 }
 
-plot_complete_df <- function(df, facet_formula, responses, file = "output_plot_dist_by_var.pdf", ...){
+plot_complete_df <- function(df, facet_formula, responses,smooth_span=0.99, file = "output_plot_dist_by_var.pdf", ...){
   require(ggplot2)
   require(scales)
   
@@ -94,7 +94,7 @@ plot_complete_df <- function(df, facet_formula, responses, file = "output_plot_d
       for(response in names(responses)){
         color <- colors[which(response == names(responses))]
         if(is.numeric(daux[[namevar]])){
-          p <- p + stat_smooth(data=daux, aes_string(x=namevar,y=response), colour = color)
+          p <- p + stat_smooth(data=daux, aes_string(x=namevar,y=response), colour = color,method="loess",span=smooth_span,sd=F)
         } else{
           p <- p +
             stat_summary(data=daux, aes_string(x=namevar, y=response), fun.y=mean, colour=color, geom="point") +
