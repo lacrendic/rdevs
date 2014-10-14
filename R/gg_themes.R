@@ -1,7 +1,7 @@
 theme_hc <- function(){
   # Highcharts theme
   theme(
-    text                = element_text(size = 11),
+    text                = element_text(size = 10),
     title               = element_text(hjust=0), 
     axis.title.x        = element_text(hjust=.5),
     axis.title.y        = element_text(hjust=.5),
@@ -54,4 +54,9 @@ theme_pallet <- function(name = "default"){
   palettes[["smtn"]] <- c("#4D4D4D", "#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0",
                           "#B2912F", "#B276B2", "#DECF3F", "#F15854")
   return(palettes[[name]])
+}
+
+colors_hc <- function(){
+  c("#7CB5EC", "#313131", "#F7A35C", "#90EE7E", "#7798BF", "#AAEEEE",
+               "#FF0066", "#EEAAEE", "#55BF3B", "#DF5353", "#7798BF", "#AAEEEE")
 }
