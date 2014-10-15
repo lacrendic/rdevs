@@ -94,7 +94,7 @@ plot_complete_df <- function(df, facet_formula, responses,smooth_span=0.99, file
       for(response in names(responses)){
         color <- colors[which(response == names(responses))]
         if(is.numeric(daux[[namevar]])){
-          p <- p + stat_smooth(data=daux, aes_string(x=namevar,y=response), colour = color,method="loess",span=smooth_span,sd=F)
+          p <- p + stat_smooth(data=daux, aes_string(x=namevar,y=response), colour = color,method="loess",span=smooth_span, se = T,fill = "grey", alpha = 0.2)
         } else{
           p <- p +
             stat_summary(data=daux, aes_string(x=namevar, y=response), fun.y=mean, colour=color, geom="point") +
