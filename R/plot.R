@@ -173,3 +173,54 @@ plot_dist <- function(variable, indicator,  facet){
   
   return(p)
 }
+
+
+plot_dist2 <- function (variable, indicator, facet) {
+  require(ggplot2)
+  require(scales)
+  if (!is.numeric(variable) & any(is.na(variable))) {
+    if (is.factor(variable)) {
+      lvls <- c(levels(variable), "NA")
+      variable <- as.character(variable)
+      variable <- ifelse(is.na(variable), "NA", variable)
+      variable <- factor(variable, levels = lvls, ordered = TRUE)
+    }
+    else {
+      variable <- ifelse(is.na(variable), "NA", variable)
+    }
+  }
+  if (is.numeric(variable) & length(unique(variable)) <= 10) {
+    variable <- as.character(variable)
+    variable <- ifelse(is.na(variable), "NA", variable)
+  }
+  df <- data.frame(variable = variable)
+  if (!missing(indicator)) 
+    df <- cbind(df, indicator = indicator)
+  if (!missing(facet)) 
+    df <- cbind(df, facet = facet)
+  p <- ggplot(df) + geom_bar(aes(variable, ..count../sum(..count..)))
+  if (!missing(indicator)) {
+    if (is.numeric(variable)) {
+      p <- p + stat_smooth(aes(x = variable, y = indicator), 
+                           color = "darkred", method = "loess", span = 0.99, 
+                           se = FALSE)
+    }
+    else {
+      p <- p + stat_summary(aes(x = variable, y = indicator), 
+                            fun.y = mean, colour = "red", geom = "point") + 
+        stat_summary(aes(x = variable, y = indicator, 
+                         group = 1), fun.y = mean, colour = "darkred", 
+                     geom = "line")
+    }
+  }
+  if (!missing(facet)) {
+    p <- p + facet_grid(. ~ facet, scales = "free")
+  }
+  p <- p + xlab(NULL) + ylab(NULL) + scale_y_continuous(labels = percent)+
+    theme(text = element_text(size = 10),panel.grid = element_blank(),
+          panel.border = element_blank(), panel.background = element_blank(),
+          legend.position = "bottom", legend.title = element_blank())
+  
+  return(p)
+}
+
