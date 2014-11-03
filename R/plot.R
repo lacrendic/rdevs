@@ -56,87 +56,62 @@ plot_pie <- function(variable){
 }
 
 
-plot_dist_pres <- function(variable,
-                           indicator,
-                           coord.flip = FALSE,
-                           count.labels = FALSE,
-                           indicator.labels = FALSE,
-                           sort.by = c("otra","variable", "indicator"),
-                           abline = FALSE,
-                           size.text = 4,
-                           size.text2 = 10,
-                           remove.axis.y = TRUE,
-                           bar.width= .6){
-  library(plyr)
-  library(dplyr)
-  library(ggplot2)
-  library(scales)
+plot_dist_pres <- function (variable, indicator, coord.flip = FALSE, count.labels = FALSE, 
+                            indicator.labels = FALSE, sort.by = c("other", "variable", "indicator"), 
+                            abline = FALSE, size.text = 4, size.text2 = 10, remove.axis.y = TRUE, bar.width = 0.6) {
+  require(plyr)
+  require(dplyr)
+  require(ggplot2)
+  require(scales)
   
   t <- table_bivariate(variable, indicator)
-  
-  if(sort.by[1] == "indicator"){
-    if(coord.flip)
+  if (sort.by[1] == "indicator") {
+    if (coord.flip) 
       t <- t %.% arrange(desc(-indicator.mean))
-    else
-      t <- t %.% arrange(desc(indicator.mean))
-  } else if (sort.by[1] == "variable") {
-    if(coord.flip)
-      t <- t %.% arrange(desc(-freq))
-    else
-      t <- t %.% arrange(desc(freq))
+    else t <- t %.% arrange(desc(indicator.mean))
   }
-  
-  t$variable <- factor(t$variable, levels=t$variable)
+  else if (sort.by[1] == "variable") {
+    if (coord.flip) 
+      t <- t %.% arrange(desc(-freq))
+    else t <- t %.% arrange(desc(freq))
+  }
+  t$variable <- factor(t$variable, levels = t$variable)
   t$id <- seq(nrow(t))
-  
-  p <- ggplot(t) + 
-    geom_bar(aes(variable, percent), stat="identity", fill="gray80", width=bar.width) +
-    geom_line(aes(id, indicator.mean), colour = "darkred") +
-    geom_point(aes(id, indicator.mean), colour = "darkred") 
-  
-  if(coord.flip)
+  p <- ggplot(t) + geom_bar(aes(variable, percent), stat = "identity", 
+                            fill = "gray80", width = bar.width) + geom_line(aes(id, 
+                                                                                indicator.mean), colour = "darkred") + geom_point(aes(id, 
+                                                                                                                                      indicator.mean), colour = "darkred")
+  if (coord.flip) 
     p <- p + coord_flip()
-  
-  if(count.labels)
-    if(coord.flip)
-      p <- p + geom_text(aes(variable, percent, label=freq.pretty),
-                         size = size.text, hjust = 1.2, colour = "white")
-  else
-    p <- p + geom_text(aes(variable, percent, label=freq.pretty),
-                       size = size.text, vjust= 1.5, colour = "white")
-  
-  if(indicator.labels)
-    if(coord.flip)
-      p <- p + geom_text(aes(variable, indicator.mean, label=indicator.mean.pretty),
-                         size = size.text, hjust = -1, colour = "darkred")
-  else
-    p <- p + geom_text(aes(variable, indicator.mean, label=indicator.mean.pretty),
-                       size = size.text, vjust = -.5, colour = "darkred")
-  
-  p <- p + ylim(0, max(c(t$percent, t$indicator.mean))*1.1)
-  p <- p +
-    theme(
-      text                = element_text(size = 10),
-      title               = element_text(hjust=0),
-      axis.title.x        = element_text(hjust=.5),
-      axis.title.y        = element_text(hjust=.5),
-      axis.text           = element_text(size = size.text2),
-      panel.grid          = element_blank(),
-      panel.border        = element_blank(),
-      panel.background    = element_blank(),
-      legend.position     = "bottom",
-      legend.title        = element_blank()
-    )
-  if(remove.axis.y)
-    if(coord.flip)
-      p <- p + theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
-  else 
-    p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
-  else
-    p <- p + scale_y_continuous(labels = percent)
+  if (count.labels) 
+    if (coord.flip) 
+      p <- p + geom_text(aes(variable, percent, label = freq.pretty), 
+                         size = size.text, hjust = 1.2, colour = "black")
+  else p <- p + geom_text(aes(variable, percent, label = freq.pretty), 
+                          size = size.text, vjust = 1.5, colour = "black")
+  if (indicator.labels) 
+    if (coord.flip) 
+      p <- p + geom_text(aes(variable, indicator.mean, 
+                             label = indicator.mean.pretty), size = size.text, 
+                         hjust = -1, colour = "darkred")
+  else p <- p + geom_text(aes(variable, indicator.mean, 
+                              label = indicator.mean.pretty), size = size.text, 
+                          vjust = -0.5, colour = "darkred")
+  p <- p + ylim(0, max(c(t$percent, t$indicator.mean)) * 1.1)
+  p <- p + theme(text = element_text(size = 10), title = element_text(hjust = 0), 
+                 axis.title.x = element_text(hjust = 0.5), axis.title.y = element_text(hjust = 0.5), 
+                 axis.text = element_text(size = size.text2), panel.grid = element_blank(), 
+                 panel.border = element_blank(), panel.background = element_blank(), 
+                 legend.position = "bottom", legend.title = element_blank())
+  if (remove.axis.y) 
+    if (coord.flip) 
+      p <- p + theme(axis.text.x = element_blank(),axis.text.y=element_text(colour="black"), axis.ticks.x = element_blank())
+  else p <- p + theme(axis.text.y = element_blank(),axis.text.x=element_text(colour="black"), axis.ticks.y = element_blank())
+  else p <- p + scale_y_continuous(labels = percent)
   p <- p + xlab(NULL) + ylab(NULL)
   p
 }
+
 
 plot_pareto <- function(variable, prop = TRUE, ...){
   require(ggplot2)
