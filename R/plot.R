@@ -198,7 +198,7 @@ plot_dist2 <- function (variable, indicator, facet, num_unique = 10) {
     df <- cbind(df, indicator = indicator)
   if (!missing(facet)) 
     df <- cbind(df, facet = facet)
-  p <- ggplot(df) + geom_bar(aes(variable, ..count../sum(..count..)))
+  p <- ggplot(df) + geom_bar(aes(variable, ..count../sum(..count..)),fill = "gray80")
   if (!missing(indicator)) {
     if (is.numeric(variable)) {
       p <- p + stat_smooth(aes(x = variable, y = indicator), 
