@@ -129,7 +129,7 @@ plot_pareto <- function(variable, prop = TRUE, ...){
 }
 
 
-plot_dist <- function(variable, indicator,  facet){
+plot_dist <- function(variable, indicator,  facet, num_unique = 10){
   require(ggplot2)
   require(scales)
   
@@ -144,7 +144,7 @@ plot_dist <- function(variable, indicator,  facet){
     }
   }
   
-  if(is.numeric(variable) & length(unique(variable))<=10){
+  if(is.numeric(variable) & length(unique(variable))<=num_unique){
     variable <- as.character(variable)
     variable <- ifelse(is.na(variable), "NA", variable)
   }
