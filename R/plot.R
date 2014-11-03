@@ -58,7 +58,7 @@ plot_pie <- function(variable){
 
 plot_dist_pres <- function (variable, indicator, coord.flip = FALSE, count.labels = FALSE, 
                             indicator.labels = FALSE, sort.by = c("other", "variable", "indicator"), 
-                            abline = FALSE, size.text = 4, size.text2 = 10, remove.axis.y = TRUE, bar.width = 0.6) {
+                            abline = FALSE, size.text = 4, size.text2 = 10, remove.axis.y = TRUE, bar.width = 0.6,Hjust=0) {
   require(plyr)
   require(dplyr)
   require(ggplot2)
@@ -86,7 +86,7 @@ plot_dist_pres <- function (variable, indicator, coord.flip = FALSE, count.label
   if (count.labels) 
     if (coord.flip) 
       p <- p + geom_text(aes(variable, percent, label = freq.pretty), 
-                         size = size.text, hjust = 1.2, colour = "black")
+                         size = size.text, hjust = Hjust, colour = "black")
   else p <- p + geom_text(aes(variable, percent, label = freq.pretty), 
                           size = size.text, vjust = 1.5, colour = "black")
   if (indicator.labels) 
