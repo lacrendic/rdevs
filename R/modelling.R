@@ -189,4 +189,45 @@ conf_matrix <- function(true.values, predictions) {
 }
 
 
-
+importance_vars <- function(data,response.name,pred.names = setdiff(colnames(data),response.name),...){
+  library(RRF)
+  class <- data[[response.name]]
+  uniq.c <- unique(class)
+  formula <- as.formula(paste("response.aux", paste(pred.names, collapse="+"), sep="~"))
+  
+  df <- ldply(1:length(uniq.c), function(v,...){
+    message(paste("CLASS: ",uniq.c[v]))
+    var <- factor(1*(class==uniq.c[v]),levels=c(0,1))
+    daux <- subset(data, select = pred.names)
+    daux$response.aux <- var
+    
+    daux <- char2factor(daux)
+    daux <- na.roughfix(daux)
+    rrf <- RRF(formula, data = daux)
+    imp <- data.frame(Variable = rownames(RRF::importance(rrf)),
+                      class = uniq.c[v],
+                      Mdg = as.numeric((RRF::importance(rrf))))
+    imp
+  },.progress="text")
+  
+  df <- reshape(df, timevar = "class", v.names = "Mdg",idvar = "Variable",direction="wide")
+  df$Mdg_combinado <- apply(df[,-1],1,max)
+  
+  daux <- char2factor(data)
+  daux <- na.roughfix(daux)
+  formula <- as.formula(paste(response.name, paste(pred.names, collapse="+"), sep="~"))
+  tree_c <- RRF(formula,daux)
+  #tree_c <- tuneRRF(daux[[response.name]], daux[,-which(colnames(daux)==response.name)]),ntreeTry = 1000, stepFactor=1.5, doBest = T, plot=F,trace=T)
+  
+  df_c <- RRF::importance(tree_c)
+  df2 <- data.frame(Variable = rownames(df_c), Mdg.Multiple=as.numeric(df_c))
+  
+  df <- join(df,df2,by="Variable",type="left",match="first")
+  vars <- c("Variable","Mdg.Multiple","Mdg_combinado")
+  df <- subset(df,select = unique(c(vars,colnames(df))))
+  
+  df <- df[order(df$Mdg_combinado,decreasing = T),]
+  
+  df[,-1] <- round(df[,-1],digits=3)
+  df
+}
