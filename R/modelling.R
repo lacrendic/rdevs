@@ -82,29 +82,63 @@ oddstable <- function(predictions, labels, min = min(predictions), max = max(pre
 }
 
 
-pred_ranking <- function(df, response = .(desercion_1)){
+pred_ranking <- function (df, response = .(DESERCION),msg=T){
   library(ROCR)
   response_var <- df[[names(response)]]
-  df2 <- df[,-which(names(df)==names(response))]
-  df2 <- df2[,laply(df2, function(v){ if(length(unique(na.omit(v)))==1){ FALSE } else { TRUE } })]
-  
-  res <- ldply(names(df2), function(namevar){
-    message(namevar)
+  df2 <- df[, -which(names(df) == names(response))]
+  df2 <- df2[, laply(df2, function(v) {
+    if (length(unique(na.omit(v))) == 1) {
+      FALSE
+    }
+    else {
+      TRUE
+    }
+  })]
+  res <- ldply(names(df2), function(namevar) {
+    if(msg){message(namevar)}
     pred_var <- df[[namevar]]
     daux <- data.frame(response_var = response_var, pred_var = pred_var)
     daux_naomit <- na.omit(daux)
-    
-    model <- glm(response_var ~ pred_var, data = daux_naomit, family = binomial(link = logit))
-    
+    model <- glm(response_var ~ pred_var, data = daux_naomit, 
+                 family = binomial(link = logit))
     pred <- prediction(model$fitted.values, daux_naomit$response)
-    perf <- performance(pred, "tpr","fpr")
-    
-    auc <- attr(performance(pred,"auc"),"y.values")[[1]]
-    ks <- max(abs(attr(perf,'y.values')[[1]]-attr(perf,'x.values')[[1]]))
-    return(data.frame(Variable = namevar, AUCROC = auc, KS = ks, NA.prop = 1-nrow(daux_naomit)/nrow(daux), log = ""))  
-  }, .progress="text")
-  res <- res[order(res$AUCROC, decreasing=TRUE),]
+    perf <- performance(pred, "tpr", "fpr")
+    auc <- attr(performance(pred, "auc"), "y.values")[[1]]
+    gini <- abs(2*auc-1)
+    ks <- max(abs(attr(perf, "y.values")[[1]] - attr(perf,"x.values")[[1]]))
+    mxe <- force(attr(performance(pred, "mxe"),"y.values")[[1]])                 #mean cross entropy (validar concordancia)
+    return(data.frame(Variable = namevar, AUC = auc, KS = ks,MXE=mxe, GINI=gini,
+                      NA.prop = 1 - nrow(daux_naomit)/nrow(daux)))
+  })
+  res <- res[order(res$AUC, decreasing = TRUE), ]
   res
+}
+
+pred_ranking_mr <- function(data,response.name=.(DESERCION)){
+  class.res <- unique(data[[response.name]])
+  
+  df <- ldply(seq(1,length(class.res)),function(ind){
+    message(paste("Class:",class.res[ind]))
+    daux <- data[,-which(colnames(data)==response.name)]
+    daux$response <- 1*(data[[response.name]]==class.res[ind])
+    df <- pred_ranking(daux,response=.(response),msg=F)
+    df$class <- class.res[ind]
+    df
+  }, .progress = "text")
+  
+  df1 <- df %>% group_by(Variable) %>% summarise(AUC = max(AUC),
+                                                 KS  = max(KS),
+                                                 MXE = min(MXE),
+                                                 GINI = max(GINI))
+  
+  df2 <- reshape(df,timevar = "class", v.names = c("AUC","KS","MXE","GINI"),idvar = "Variable",direction="wide")
+  
+  df2 <- join(df1,df2,by="Variable",type="left",match="first")
+  
+  df2 <- df2[,unique(c("Variable",sort(colnames(df2))))]
+  
+  df2[order(df2$AUC,decreasing = T),]
+  
 }
 
 char2factor <- function(df) {
