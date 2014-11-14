@@ -47,6 +47,28 @@ summary_predictions <- function(predictions,labels){
   res
 }
 
+summary_predictions_mr <- function (predictions, response, imp.class){
+
+  labels <- sort(unique(response))
+  
+  res <- ldply(seq(1,length(labels)),function(i){
+            df <- summary_predictions(predictions[,i],labels=ifelse(as.character(response==labels[i]), 1, 0))
+            df$Label = labels[i]
+            df
+          })
+  
+  res %>% summarise(N.obs = N[1], 
+                    Accuracy = mean[Label==imp.class], 
+                    KS = max(ks), 
+                    AUC = max(aucroc),
+                    Gini = max(gini),
+                    Gain10 = gain10[Label==imp.class],
+                    Gain20 = gain20[Label==imp.class],
+                    Gain30 = gain30[Label==imp.class],
+                    Gain40 = gain40[Label==imp.class],
+                    Gain50 = gain50[Label==imp.class]) 
+}
+
 oddstable <- function(predictions, labels, min = min(predictions), max = max(predictions), cuts = NULL,
                       nclass = 10, round = 0, quantile = T, format.2 = T){
   if(missing(cuts) & quantile){
