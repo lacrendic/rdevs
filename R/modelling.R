@@ -31,17 +31,18 @@ gain <- function(predictions, labels, percents = c(0.10, 0.20, 0.30, 0.40, 0.50)
   g
 }
 
-summary_predictions <- function(predictions,labels){ 
+summary_predictions <- function (predictions, labels){
+ 
+  res <- c(N = length(predictions), 
+           N.good = length(predictions[labels == 1]), 
+           N.bad = length(predictions[labels == 0]), 
+           Mean = length(predictions[labels == 0])/length(predictions), 
+           ks(predictions, labels), 
+           aucroc(predictions, labels), 
+           gini(predictions, labels), 
+           divergence(predictions,labels), 
+           gain = gain(predictions, labels))
   
-  res <- c(N = length(predictions),
-           N.good = length(predictions[labels == 1]),
-           N.bad = length(predictions[labels == 0]),
-           mean = length(predictions[labels == 0])/length(predictions),
-           ks(predictions,labels),
-           aucroc(predictions,labels),
-           gini(predictions,labels),
-           divergence(predictions,labels),
-           gain = gain(predictions,labels))
   res <- data.frame(t(res))
   names(res) <- gsub("\\.", "", names(res))
   res
@@ -58,7 +59,7 @@ summary_predictions_mr <- function (predictions, response, imp.class){
           })
   
   res %>% summarise(N.obs = N[1], 
-                    Accuracy = mean[Label==imp.class], 
+                    TNegResponse = Mean[Label==imp.class], 
                     KS = max(ks), 
                     AUC = max(aucroc),
                     Gini = max(gini),

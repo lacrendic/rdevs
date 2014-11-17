@@ -58,3 +58,68 @@ run_models <- function(training, testing,
   
   res
 }
+
+
+run_models_mr <- function(training, testing, response.name, pred.names = setdiff(colnames(training), response.name),
+                          models=c("gbm","lda","multinom","nnet","pda","pls","rbf","rf","treebag"), obj.class="R",fit_control = trainControl(method = "LOOCV"), len.grid = 4,...){
+  
+  # Definir set de parametros fijos
+  
+  # Los siguientes modelos pueden ser tuneados desde el inicio:
+  
+  # gbm - lda - multinom - nnet - pda - pls - rbf - rf - treebag
+  
+  # Metodología de validacion de modelos: VC 10-out, de 10 repeticiones. /default: LOOCV
+  # Sobre los parametros candidatos se hace el ajuste, sobre una grilla de 4^p posibles valores.
+  
+  #   data(oil)
+  #   data <- fattyAcids
+  #   data$oilType <- oilType 
+  #   
+  #   models <- c("gbm","lda","multinom","nnet","pda","pls","rbf","rf","treebag")
+  #   obj.class <- "A"
+  #   
+  #   response.name <- "oilType"
+  #   pred.names <- c("Palmitic", "Stearic", "Oleic", "Linoleic")
+  # 
+  #   set.seed(1)
+  #   muestra <- createDataPartition(data[[response.name]],p = 0.7,list = F)
+  #   
+  #   training <- data#[muestra,]
+  #   testing <- data#[-muestra,]
+  #   freqtable(training$oilType)
+  #   freqtable(testing$oilType)
+  
+  #     run_models_mr(data, data, response.name = "oilType")
+  
+  #fit_control = trainControl(method = "LOOCV")  
+  #trainControl(method = "repeatedcv", number = 10, repeats=10)  
+  
+  res <- data.frame(nvars = rep(seq(length(pred.names)), each=length(models)),
+                    model = rep(models, length(pred.names)), stringsAsFactors=FALSE)
+  
+  res <- dlply(res, .variables= .(nvars, model))
+  
+  res2 <- ldply(res,function(x,...){
+    #x <- res[[1]]
+    message(sprintf("########## Modelo %s con %s vars", x$model, x$nvars))
+    
+    if(x$model%in%c("gbm","pls") & x$nvars==1){return(data.frame(nvars=x$nvars,model=x$model,N.obs=NA,Accuracy=NA,KS=NA,AUC=NA,Gini=NA,Gain10=NA,Gain20=NA,Gain30=NA,Gain40=NA,Gain50=NA))}
+    f <- as.formula(paste(response.name, paste(pred.names[seq(x$nvars)], collapse=" + "), sep =" ~ "))
+    message("Ajustando...")
+    
+    mod <- train(f, training, trControl = fit_control, method = x$model, verbose=F,tuneLength = len.grid,preProcess =c("center","scale"), ...)    
+    mod
+    pred <- predict(mod,newdata = testing, type="prob")
+    
+    sp <-  summary_predictions_mr(predictions = pred, response = testing[[response.name]], imp.class = obj.class)
+    return(cbind(x,Accuracy=max(mod$results$Accuracy),sp))
+    #sp
+  })
+  
+  res <- join(res2, data.frame(nvars=seq(pred.names), namevar = pred.names), by="nvars", type="left")
+  res$namevar <- factor(res$namevar, levels=pred.names)
+  
+  res <- res[,-1]
+  res[,unique(c("nvars","model","namevar","N.obs","TNegResponse",colnames(res)))]
+}
