@@ -109,11 +109,14 @@ run_models_mr <- function(training, testing, response.name, pred.names = setdiff
     message("Ajustando...")
     
     mod <- train(f, training, trControl = fit_control, method = x$model, verbose=F,tuneLength = len.grid,preProcess =c("center","scale"), ...)    
-    mod
+
+    message("Calculando indicadores de validación...")
     pred <- predict(mod,newdata = testing, type="prob")
     
     sp <-  summary_predictions_mr(predictions = pred, response = testing[[response.name]], imp.class = obj.class)
+    message("Modelo listo!")
     return(cbind(x,Accuracy=max(mod$results$Accuracy),sp))
+
     #sp
   })
   
