@@ -59,41 +59,8 @@ run_models <- function(training, testing,
   res
 }
 
-
 run_models_mr <- function(training, testing, response.name, pred.names = setdiff(colnames(training), response.name),
                           models=c("gbm","lda","multinom","nnet","pda","pls","rbf","rf","treebag"), obj.class="R",fit_control = trainControl(method = "LOOCV"), len.grid = 4,...){
-  
-  # Definir set de parametros fijos
-  
-  # Los siguientes modelos pueden ser tuneados desde el inicio:
-  
-  # gbm - lda - multinom - nnet - pda - pls - rbf - rf - treebag
-  
-  # Metodología de validacion de modelos: VC 10-out, de 10 repeticiones. /default: LOOCV
-  # Sobre los parametros candidatos se hace el ajuste, sobre una grilla de 4^p posibles valores.
-  
-  #   data(oil)
-  #   data <- fattyAcids
-  #   data$oilType <- oilType 
-  #   
-  #   models <- c("gbm","lda","multinom","nnet","pda","pls","rbf","rf","treebag")
-  #   obj.class <- "A"
-  #   
-  #   response.name <- "oilType"
-  #   pred.names <- c("Palmitic", "Stearic", "Oleic", "Linoleic")
-  # 
-  #   set.seed(1)
-  #   muestra <- createDataPartition(data[[response.name]],p = 0.7,list = F)
-  #   
-  #   training <- data#[muestra,]
-  #   testing <- data#[-muestra,]
-  #   freqtable(training$oilType)
-  #   freqtable(testing$oilType)
-  
-  #     run_models_mr(data, data, response.name = "oilType")
-  
-  #fit_control = trainControl(method = "LOOCV")  
-  #trainControl(method = "repeatedcv", number = 10, repeats=10)  
   
   res <- data.frame(nvars = rep(seq(length(pred.names)), each=length(models)),
                     model = rep(models, length(pred.names)), stringsAsFactors=FALSE)
@@ -108,8 +75,8 @@ run_models_mr <- function(training, testing, response.name, pred.names = setdiff
     f <- as.formula(paste(response.name, paste(pred.names[seq(x$nvars)], collapse=" + "), sep =" ~ "))
     message("Ajustando...")
     
-    mod <- train(f, training, trControl = fit_control, method = x$model, verbose=F,tuneLength = len.grid,preProcess =c("center","scale"), ...)    
-
+    mod <- train(f, training, trControl = fit_control, method = x$model, verbose=F,tuneLength = len.grid, ...)    
+    
     message("Calculando indicadores de validación...")
     pred <- predict(mod,newdata = testing, type="prob")
     
@@ -117,7 +84,6 @@ run_models_mr <- function(training, testing, response.name, pred.names = setdiff
     message("Modelo listo!")
     return(cbind(x,Accuracy=max(mod$results$Accuracy),sp))
 
-    #sp
   })
   
   res <- join(res2, data.frame(nvars=seq(pred.names), namevar = pred.names), by="nvars", type="left")
