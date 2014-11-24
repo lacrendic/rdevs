@@ -77,7 +77,8 @@ summary_predictions_mr <- function (predictions, response, imp.class){
                           Gain40 = gain40[Label==imp.class],
                           Gain50 = gain50[Label==imp.class])
 
-  sm2 <- aov.test(prob=predictions[,which(names(predictions)==imp.class)])
+  sm2 <- aov.test(prob=predictions[,which(names(predictions)==imp.class)],class=response)
+  c(sm,sm2)
 }
 
 
