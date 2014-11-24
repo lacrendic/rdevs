@@ -79,6 +79,7 @@ run_models_mr <- function(training, testing, response.name, pred.names = setdiff
     
     message("Calculando indicadores de validación...")
     pred <- predict(mod,newdata = testing, type="prob")
+    colnames(pred) <- levels(testing[[response.name]])
     
     sp <-  summary_predictions_mr(predictions = pred, response = testing[[response.name]], imp.class = obj.class)
     message("Modelo listo!")

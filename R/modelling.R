@@ -48,6 +48,13 @@ summary_predictions <- function (predictions, labels){
   res
 }
 
+aov.test <- function(prob,class){
+  anova <- aov(prob~class)
+  sm <- summary(anova)
+  c(F.Statistic=sm[[1]][["F value"]][1],P.value=sm[[1]][["Pr(>F)"]][1])
+}
+
+
 summary_predictions_mr <- function (predictions, response, imp.class){
   
   labels <- sort(unique(response))
@@ -58,17 +65,19 @@ summary_predictions_mr <- function (predictions, response, imp.class){
     df
   })
   
-  res %>% summarise(N.obs = N[1], 
-                    TNegResponse = Mean[Label==imp.class], 
-                    KS = max(ks), 
-                    AUC = max(aucroc),
-                    Gini = max(gini),
-                    AUC_CR = aucroc[Label==imp.class],
-                    Gain10 = gain10[Label==imp.class],
-                    Gain20 = gain20[Label==imp.class],
-                    Gain30 = gain30[Label==imp.class],
-                    Gain40 = gain40[Label==imp.class],
-                    Gain50 = gain50[Label==imp.class]) 
+  sm <- res %>% summarise(N.obs = N[1], 
+                          TNegResponse = Mean[Label==imp.class], 
+                          KS = max(ks), 
+                          AUC = max(aucroc),
+                          Gini = max(gini),
+                          AUC_CR = aucroc[Label==imp.class],
+                          Gain10 = gain10[Label==imp.class],
+                          Gain20 = gain20[Label==imp.class],
+                          Gain30 = gain30[Label==imp.class],
+                          Gain40 = gain40[Label==imp.class],
+                          Gain50 = gain50[Label==imp.class])
+
+  sm2 <- aov.test(prob=predictions[,which(names(predictions)==imp.class)])
 }
 
 
