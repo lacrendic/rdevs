@@ -15,7 +15,7 @@ make_cluster_vars <- function(df_dir,n,plot){
     pdf("plot_output.pdf", width = 8, height = 4)
     par(mfrow=c(1,2),cex=0.7)
     plot(tree)
-    plot(stab, main="Stabilidad de los clusters")
+    plot(stab, main="Estabilidad de los clusters")
     dev.off()
   }
   
