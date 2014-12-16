@@ -300,3 +300,29 @@ importance_vars <- function(data,response.name,pred.names = setdiff(colnames(dat
   df[,-1] <- round(df[,-1],digits=3)
   df
 }
+
+# Ranking basado en el Stepwise Forward de Regresión Logistica
+lr_ranking <- function(df,response,pred.names=setdiff(colnames(df),response),m){
+  
+  daux_narf <- na.roughfix(df)
+  aux <- c()
+  res_l <- list()
+  
+  for(i in 1:m){
+  res <- ldply(setdiff(names(df),c(aux,response)), function(namevar) {
+    
+    f <- as.formula(paste(response, paste(c(aux,namevar), collapse="+"), sep="~"))
+    model <- glm(f, data = daux_narf, family = binomial(link = logit))
+    aic = summary(model)$aic
+    
+    return(data.frame(Variable = namevar, AIC = aic))
+  })
+  res <- res[order(res$AIC, decreasing = F)[1],]
+  res_l[[i]] <- res
+  aux <- c(aux,res$Variable[1])
+  message(paste("Iteracion ", i," (de ",m,") completa. (AIC: ",round(res$AIC[1],digits=1),")",sep=""))
+  
+  }
+  return(ldply(res_l,function(v){v}))
+}
+
